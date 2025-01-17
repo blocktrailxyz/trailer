@@ -1,0 +1,12 @@
+{
+  "name": "trailer",
+  "version": "1.0.0",
+  "description": "Trailer run on nodejs23.1.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
