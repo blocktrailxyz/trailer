@@ -11,3 +11,5 @@ cat .nvmrc # v23.1.0
 ```sh
 npm init -y
 ```
+
+Typescript: <https://fastify.dev/docs/latest/Reference/TypeScript>
