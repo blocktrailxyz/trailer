@@ -1,6 +1,8 @@
 import fastify from 'fastify'
+import * as dotenv from "dotenv"
 
 const server = fastify()
+
 
 server.get('/ping', async (request, reply) => {
   return 'pong\n'
