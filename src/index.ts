@@ -1,6 +1,4 @@
 import fastify from 'fastify'
-import * as dotenv from "dotenv"
-
 const server = fastify()
 
 
