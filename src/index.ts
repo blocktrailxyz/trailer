@@ -10,7 +10,7 @@ server.get('/ping', async () => {
   return 'pong\n'
 });
 
-server.listen({ port: port }, (err, address) => {
+server.listen({ port: port, host: '0.0.0.0' }, (err, address) => {
   if (err) {
     console.error(err)
     process.exit(1)
