@@ -18,6 +18,7 @@
     "@fastify/type-provider-json-schema-to-ts": "^5.0.0",
     "@fastify/type-provider-typebox": "^5.1.0",
     "@sinclair/typebox": "^0.34.14",
+    "dotenv": "^16.4.7",
     "fastify": "^5.2.1"
   },
   "devDependencies": {

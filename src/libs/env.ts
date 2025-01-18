@@ -1,3 +1,9 @@
+import dotenv from 'dotenv';
+
+if (process.env.APP_ENV !== "production") {
+  dotenv.config();
+}
+
 export class EnvNotFoundError extends Error {
   constructor(key: string, customMessage?: string) {
     let errorMessage = customMessage || `Environment variable not found: ${key}`;
