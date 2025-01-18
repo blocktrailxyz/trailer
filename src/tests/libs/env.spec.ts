@@ -1,4 +1,4 @@
-import { Env, EnvNotFoundError } from '../../libs/env'; // Adjust the import path as necessary
+import { Env, EnvNotFoundError } from 'libs/env'; // Adjust the import path as necessary
 
 describe('Env', () => {
   const mockEnv = {
