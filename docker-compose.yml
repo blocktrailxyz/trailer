@@ -10,7 +10,7 @@ services:
     env_file:
       - .env
     environment:
-      APP_ENV: $APP_ENV
+      NODE_ENV: $NODE_ENV
       APP_PORT: $APP_PORT
     volumes:
       - .:/app

@@ -2,7 +2,7 @@
 FROM node:23.1.0
 
 # Use environment variables in production
-ENV APP_ENV production
+ENV NODE_ENV production
 ENV APP_PORT 8080
 
 # Set the working directory inside the container

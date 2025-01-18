@@ -1,8 +1,4 @@
-import dotenv from 'dotenv';
-
-if (process.env.APP_ENV !== "production") {
-  dotenv.config();
-}
+import './env_loader'
 
 export class EnvNotFoundError extends Error {
   constructor(key: string, customMessage?: string) {
