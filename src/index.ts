@@ -6,7 +6,7 @@ const server = fastify()
 const env = new Env(process.env);
 const port = parseInt(env.fetch('APP_PORT', '8080'));
 
-server.get('/ping', async (request, reply) => {
+server.get('/ping', async () => {
   return 'pong\n'
 });
 
