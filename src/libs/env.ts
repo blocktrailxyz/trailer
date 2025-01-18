@@ -6,7 +6,7 @@ if (process.env.APP_ENV !== "production") {
 
 export class EnvNotFoundError extends Error {
   constructor(key: string, customMessage?: string) {
-    let errorMessage = customMessage || `Environment variable not found: ${key}`;
+    const errorMessage = customMessage || `Environment variable not found: ${key}`;
     super(errorMessage);
     this.name = 'EnvNotFoundError';
   }
@@ -14,7 +14,6 @@ export class EnvNotFoundError extends Error {
 
 export class Env {
   env: Record<string, string | undefined>;
-
 
   constructor(env: NodeJS.ProcessEnv) {
     this.env = env;

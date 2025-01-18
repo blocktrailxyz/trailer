@@ -9,7 +9,9 @@
     "dev": "ts-node-dev --respawn --transpile-only -r tsconfig-paths/register src/index.ts",
     "clean": "rm -rf dist",
     "test": "jest",
-    "test:watch": "jest --watch"
+    "test:watch": "jest --watch",
+    "lint": "eslint 'src/**/*.{ts,js}'",
+    "lint:fix": "eslint 'src/**/*.{ts,js}' --fix"
   },
   "keywords": [],
   "author": "",
@@ -22,13 +24,21 @@
     "fastify": "^5.2.1"
   },
   "devDependencies": {
+    "@eslint/js": "^9.18.0",
     "@types/jest": "^29.5.14",
     "@types/node": "^22.10.7",
+    "@typescript-eslint/eslint-plugin": "^8.20.0",
+    "@typescript-eslint/parser": "^8.20.0",
+    "eslint": "^9.18.0",
+    "eslint-config-prettier": "^10.0.1",
+    "eslint-plugin-prettier": "^5.2.2",
+    "globals": "^15.14.0",
     "jest": "^29.7.0",
     "json-schema-to-typescript": "^15.0.4",
     "ts-jest": "^29.2.5",
     "ts-node-dev": "^2.0.0",
     "tsconfig-paths": "^4.2.0",
-    "typescript": "^5.7.3"
+    "typescript": "^5.7.3",
+    "typescript-eslint": "^8.20.0"
   }
 }
