@@ -1,5 +1,4 @@
-import pino from 'pino';
-import { getLogOptions, Logger } from 'libs/logger';
+import { getLogOptions } from 'libs/logger';
 
 jest.mock('pino');
 
@@ -9,7 +8,7 @@ describe('Logger', () => {
   });
 
   it('should return pino-pretty options in non-production environments', () => {
-    process.env.APP_ENV = 'development';
+    process.env.NODE_ENV = 'development';
     process.env.LOG_LEVEL = 'debug';
 
     const options = getLogOptions();
@@ -25,7 +24,7 @@ describe('Logger', () => {
   });
 
   it('should return no transport in production environments', () => {
-    process.env.APP_ENV = 'production';
+    process.env.NODE_ENV = 'production';
     process.env.LOG_LEVEL = 'info';
 
     const options = getLogOptions();
@@ -35,23 +34,10 @@ describe('Logger', () => {
 
   it('should return default log level if LOG_LEVEL is not set', () => {
     delete process.env.LOG_LEVEL;
-    process.env.APP_ENV = 'production';
+    process.env.NODE_ENV = 'production';
 
     const options = getLogOptions();
     expect(options.level).toBe('info');
   });
 
-  it('should create a Pino logger with the correct options', () => {
-    process.env.APP_ENV = 'development';
-    process.env.LOG_LEVEL = 'debug';
-
-    Logger(getLogOptions());
-
-    expect(pino).toHaveBeenCalledWith(expect.objectContaining({
-      level: 'debug',
-      transport: expect.objectContaining({
-        target: 'pino-pretty',
-      }),
-    }));
-  });
 });

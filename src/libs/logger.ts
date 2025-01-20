@@ -10,9 +10,7 @@ const getLogOptions = () => {
     },
   };
 
-  const transport = process.env.APP_ENV !== 'production' ? nonProduction : undefined;
-
-  console.log(`transport: ${JSON.stringify(transport)}`);
+  const transport = process.env.NODE_ENV !== 'production' ? nonProduction : undefined;
 
   return {
     transport: transport,

@@ -12,9 +12,33 @@ module.exports = {
   testMatch: ['**/?(*.)+(spec|test).[jt]s?(x)'], // Match test files
   moduleFileExtensions: ['ts', 'js'], // Recognize TS and JS files
   moduleDirectories: ['node_modules', 'src'],
-  globals: {
-    'ts-jest': {
-      tsconfig: 'tsconfig.json', // Use your existing TypeScript config
-    },
+  setupFilesAfterEnv: ['<rootDir>/jest.setup.ts'], //
+  transform: {
+    '^.+\\.tsx?$': ['ts-jest', {
+      tsconfig: 'tsconfig.json', // Path to your TypeScript config file
+      diagnostics: true,        // Enable diagnostics to catch TypeScript issues
+    }],
   },
+  
+  // globals: {
+  //   'ts-jest': {
+  //     tsconfig: 'tsconfig.json', // Use your existing TypeScript config
+  //   },
+  // },
 };
+
+
+// module.exports = {
+//   preset: 'ts-jest', // Preset for TypeScript with Jest
+//   testEnvironment: 'node', // Use Node.js environment
+//   transform: {
+//     '^.+\\.tsx?$': ['ts-jest', {
+//       tsconfig: 'tsconfig.json', // Path to your TypeScript config file
+//       diagnostics: true,        // Enable diagnostics to catch TypeScript issues
+//     }],
+//   },
+//   moduleNameMapper: {
+//     '^config/(.*)$': '<rootDir>/src/config/$1',
+//     '^models/(.*)$': '<rootDir>/src/models/$1',
+//   },
+// };

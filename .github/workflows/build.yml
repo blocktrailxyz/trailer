@@ -1,0 +1,68 @@
+name: Lint and Test
+
+on:
+  push:
+    branches:
+      - main
+      - develop
+
+  pull_request:
+    branches:
+      - develop
+      - main
+
+jobs:
+  lint-and-test:
+    name: Build Status
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:14
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: "securepassword"
+          POSTGRES_DB: trailer_test
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U postgres -d trailer_test"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    steps:
+      # Checkout the repository
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # Set up Node.js with v23.1.0
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '23.1.0'
+
+      # Install dependencies
+      - name: Install dependencies
+        run: npm install
+
+      - name: Setup environment variables
+        run: |
+          echo "NODE_ENV=test" >> $GITHUB_ENV
+          echo "APP_PORT=8080" >> $GITHUB_ENV
+          echo "DB_TEST_NAME=trailer_test" >> $GITHUB_ENV
+          echo "DB_USER=postgres" >> $GITHUB_ENV
+          echo "DB_PASSWORD=securepassword" >> $GITHUB_ENV
+          echo "DB_PORT=5432" >> $GITHUB_ENV
+          echo "LOG_LEVEL=debug" >> $GITHUB_ENV
+
+      # Run lint
+      - name: Run lint
+        run: npm run lint
+
+      - name: Run migrations
+        run: npm run db:migrate
+
+      - name: Run tests
+        run: npm run test
+
