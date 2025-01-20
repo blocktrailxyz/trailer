@@ -2,11 +2,21 @@ import { FastifyReply, FastifyRequest } from 'fastify';
 import User from 'models/user';
 import { IUserSerializer, UserSerializer } from 'serializers/user';
 import { JsonApiResponse } from 'types/json_api_response';
+import { paginate, parsePagination } from 'utils/paginate';
 
-export const index = async (_request: FastifyRequest, reply: FastifyReply) => {
-  const users = await User.findAll();
-  const responseData = UserSerializer.serialize(users);
-  reply.send(responseData);
+export const index = async (request: FastifyRequest, reply: FastifyReply) => {
+  const { page, perPage } = parsePagination(request.query);
+
+  const paginatedUsers = await paginate(
+    User,
+    { order: [['createdAt', 'DESC']] },
+    UserSerializer,
+    page,
+    perPage,
+    request
+  );
+
+  reply.send(paginatedUsers);
 };
 
 export const show = async (request: FastifyRequest<{ Params: { id: string } }>, reply: FastifyReply) => {
