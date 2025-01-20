@@ -1,7 +1,28 @@
+import { userFactory } from 'factories/user.factory';
 import User from 'models/user'; // Adjust the import based on your project structure
 import { DataTypes } from 'sequelize';
 
 describe('models/user', () => {
+  describe('User Factory', () => {
+    it('.build user', () => {
+      const user = userFactory.build();
+
+      expect(user.displayName).toBeDefined();
+      expect(user.emojicon).toBeDefined();
+      expect(user.createdAt).toBeDefined();
+      expect(user.updatedAt).toBeDefined();
+    });
+
+    it('.create', async () => {
+      const user = await userFactory.create({}, User);
+      expect(user.id).toBeDefined();
+      expect(user.displayName).toBeDefined();
+      expect(user.emojicon).toBeDefined();
+      expect(user.createdAt).toBeDefined();
+      expect(user.updatedAt).toBeDefined();
+    });
+  });
+
   it('should define the User model with correct attributes', () => {
     const attributes = User.getAttributes();
 
@@ -29,6 +50,8 @@ describe('models/user', () => {
     const user = await User.create({
       displayName: 'John Doe',
       emojicon: '🙂',
+      createdAt: new Date(),
+      updatedAt: new Date()
     });
 
     expect(user.id).toBeDefined();
@@ -43,7 +66,7 @@ describe('models/user', () => {
       User.create({
         emojicon: '🙂',
       })
-    ).rejects.toThrowError(/notNull/);
+    ).rejects.toThrow(/notNull/);
   });
 
   it('should fail to create a user without emojicon', async () => {
@@ -51,13 +74,15 @@ describe('models/user', () => {
       User.create({
         displayName: 'John Doe',
       })
-    ).rejects.toThrowError(/notNull/);
+    ).rejects.toThrow(/notNull/);
   });
 
   it('should allow updates to user attributes', async () => {
     const user = await User.create({
       displayName: 'John Doe',
       emojicon: '🙂',
+      createdAt: new Date(),
+      updatedAt: new Date()
     });
 
     user.displayName = 'Jane Doe';
