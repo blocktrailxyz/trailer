@@ -11,7 +11,12 @@ beforeAll(async () => {
 afterEach(async () => {
   const models = Object.values(sequelize.models);
   for (const model of models) {
-    await model.destroy({ where: {}, truncate: true, cascade: true });
+    try {
+      await model.destroy({ where: {}, truncate: true, cascade: true });
+    }
+    catch(error) {
+      console.log(`Error cleaning up model ${model.name}: ${error}`);
+    }
   }
 });
 
