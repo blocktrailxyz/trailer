@@ -16,6 +16,7 @@ afterEach(async () => {
     }
     catch(error) {
       console.log(`Error cleaning up model ${model.name}: ${error}`);
+      return error
     }
   }
 });

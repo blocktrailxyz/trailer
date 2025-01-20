@@ -1,4 +1,4 @@
-name: Lint and Test
+name: Build
 
 on:
   push:
@@ -12,7 +12,7 @@ on:
       - main
 
 jobs:
-  lint-and-test:
+  build_test:
     name: Build Status
     runs-on: ubuntu-latest
 
@@ -42,9 +42,13 @@ jobs:
         with:
           node-version: '23.1.0'
 
-      # Install dependencies
+      # Install Yarn
+      - name: Install Yarn
+        run: npm install --global yarn
+
+      # Install dependencies with Yarn
       - name: Install dependencies
-        run: npm install
+        run: yarn install
 
       - name: Setup environment variables
         run: |
@@ -56,13 +60,12 @@ jobs:
           echo "DB_PORT=5432" >> $GITHUB_ENV
           echo "LOG_LEVEL=debug" >> $GITHUB_ENV
 
-      # Run lint
+      # Run lint with Yarn
       - name: Run lint
-        run: npm run lint
+        run: yarn lint
 
       - name: Run migrations
-        run: npm run db:migrate
+        run: yarn db:migrate
 
       - name: Run tests
-        run: npm run test
-
+        run: yarn clean && yarn test

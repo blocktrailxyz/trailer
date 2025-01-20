@@ -1,4 +1,4 @@
-export interface JsonApiResponse<T> {
+export interface JsonApiResponseType<T> {
   data: {
     type: string;
     id: string;
