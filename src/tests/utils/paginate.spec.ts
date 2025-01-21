@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { paginate } from 'utils/paginate';
+import { paginate, PaginationParams, parsePagination } from 'utils/paginate';
 import { Serializer } from 'jsonapi-serializer';
 import { ModelStatic, FindOptions } from 'sequelize';
 import { FastifyRequest } from 'fastify';
@@ -126,5 +126,50 @@ describe('paginate', () => {
 
     expect(result.meta.currentPage).toBe(-1);
     expect(result.meta.totalPages).toBe(1); // Only one page available
+  });
+});
+
+
+describe('PaginationParams', () => {
+  it('should parse valid query parameters', () => {
+    const query = { page: '2', perPage: '15' };
+
+    const result: PaginationParams = parsePagination(query);
+
+    expect(result).toEqual({ page: 2, perPage: 15 });
+    expect(result.page).toBe(2);
+    expect(result.perPage).toBe(15);
+  });
+
+  it('should default to page 1 and perPage 10 if query parameters are missing', () => {
+    const query = {};
+
+    const result: PaginationParams = parsePagination(query);
+
+    expect(result).toEqual({ page: 1, perPage: 10 });
+  });
+
+  it('should default to page 1 and perPage 10 if query parameters are invalid', () => {
+    const query = { page: 'invalid', perPage: 'invalid' };
+
+    const result: PaginationParams = parsePagination(query);
+
+    expect(result).toEqual({ page: 1, perPage: 10 });
+  });
+
+  it('should handle partially missing query parameters', () => {
+    const query = { page: '3' };
+
+    const result: PaginationParams = parsePagination(query);
+
+    expect(result).toEqual({ page: 3, perPage: 10 });
+  });
+
+  it('should handle extra fields in the query object gracefully', () => {
+    const query = { page: '4', perPage: '20', extraField: 'value' };
+    const { page, perPage } = parsePagination(query);
+
+    expect(page).toEqual(4)
+    expect(perPage).toEqual(20)
   });
 });

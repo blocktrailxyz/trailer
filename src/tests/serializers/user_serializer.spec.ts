@@ -1,7 +1,7 @@
 import { userFactory } from 'factories/user.factory';
 import { UserSerializer } from 'serializers/user';
 import User from 'models/user'
-// import { JsonApiResponse } from 'types/json_api_response';
+// import { JsonApiResponseType } from 'types/json_api_response';
 
 describe('UserSerializer', () => {
   it('serializes a single user', async() => {
