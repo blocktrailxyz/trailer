@@ -50,6 +50,19 @@ jobs:
       - name: Install dependencies
         run: yarn install
 
+      - name: Wait for PostgreSQL to be ready
+        run: |
+          until pg_isready -h 127.0.0.1 -p 5432; do
+            echo "Waiting for PostgreSQL..."
+            sleep 1
+          done
+
+      - name: Enable uuid-ossp extension
+        run: |
+          psql -h 127.0.0.1 -U postgres -d trailer_test -c "CREATE EXTENSION IF NOT EXISTS \"uuid-ossp\";"
+        env:
+          PGPASSWORD: securepassword
+
       - name: Setup environment variables
         run: |
           echo "NODE_ENV=test" >> $GITHUB_ENV

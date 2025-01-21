@@ -2,7 +2,7 @@ import { Serializer } from "jsonapi-serializer";
 
 // type safe purpose
 export interface IUserSerializer {
-  id: number;
+  id: string;
   displayName: string;
   emojicon: string;
 }

@@ -13,8 +13,10 @@ describe('models/user', () => {
       expect(user.updatedAt).toBeDefined();
     });
 
-    it('.create', async () => {
+    it('.create user', async () => {
       const user = await userFactory.create({}, User);
+
+      // e7abf6c5-fa2e-4527-83bc-8e7c91d14c30
       expect(user.id).toBeDefined();
       expect(user.displayName).toBeDefined();
       expect(user.emojicon).toBeDefined();
@@ -27,7 +29,7 @@ describe('models/user', () => {
     const attributes = User.getAttributes();
 
     expect(attributes.id).toBeDefined();
-    expect(attributes.id.type).toBeInstanceOf(DataTypes.INTEGER);
+    expect(attributes.id.type).toBeInstanceOf(DataTypes.UUID);
 
     expect(attributes.displayName).toBeDefined();
     expect(attributes.displayName.type).toBeInstanceOf(DataTypes.STRING);

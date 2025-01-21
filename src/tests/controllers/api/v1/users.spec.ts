@@ -27,8 +27,8 @@ describe('User Controller', () => {
       } as unknown as FastifyRequest;
 
       // jest mocks once mock all
-      (parsePagination as jest.Mock).mockReturnValue({ page: 1, perPage: 10 });
       (paginate as jest.Mock).mockResolvedValue({ data: [], meta: {}, links: {} });
+      (parsePagination as jest.Mock).mockReturnValue({ page: 1, perPage: 10 });
 
       await Controller.index(mockRequest, mockReply);
 
@@ -47,7 +47,7 @@ describe('User Controller', () => {
       const mockRequest = {
         query: { page: '1', perPage: '10' },
         log: { error: jest.fn(exceptionObject => {
-           return exceptionObject;
+          return exceptionObject;
         }) },
       } as unknown as FastifyRequest;
 
