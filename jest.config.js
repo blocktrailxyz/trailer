@@ -13,7 +13,7 @@ module.exports = {
   moduleFileExtensions: ['ts', 'js'], // Recognize TS and JS files
   moduleDirectories: ['node_modules', 'src'],
   setupFilesAfterEnv: ['<rootDir>/jest.setup.ts'], //
-  // maxWorkers: 1, // run test sequentially
+  maxWorkers: 1, // run test sequentially
   transform: {
     '^.+\\.tsx?$': ['ts-jest', {
       tsconfig: 'tsconfig.json', // Path to your TypeScript config file

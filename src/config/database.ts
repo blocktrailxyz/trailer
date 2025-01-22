@@ -4,7 +4,7 @@ import { Sequelize } from "sequelize";
 const env = new Env(process.env);
 const dbName = env.fetch('NODE_ENV', '') === "test" ? env.fetch('DB_TEST_NAME') : env.fetch('DB_NAME')
 
-const dbClient = new Sequelize({
+const sequelize = new Sequelize({
   dialect: 'postgres',
   host: process.env.DB_HOST,
   port: parseInt(process.env.DB_PORT || '5432', 10),
@@ -14,4 +14,4 @@ const dbClient = new Sequelize({
   logging: process.env.NODE_ENV === 'development', // Log SQL queries in development
 });
 
-export default dbClient;
+export default sequelize;
