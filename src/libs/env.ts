@@ -15,6 +15,19 @@ export class Env {
     this.env = env;
   }
 
+  public static fetch(key: string, defaultValue?: string): string{
+    const value = process.env[key];
+
+    if (value !== undefined)
+      return value;
+
+    if (defaultValue !== undefined) {
+      return defaultValue;
+    }
+
+    throw new EnvNotFoundError(key);
+  }
+
   // Access environment variables using [] operator
   public get(key: string): string | undefined {
     return this.env[key];
