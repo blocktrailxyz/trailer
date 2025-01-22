@@ -5,69 +5,47 @@
 ## Requirement
 
 ```sh
+# nodejs 23.1
 cat .nvmrc # v23.1.0
-```
 
-## Run the app
+# postgresql
+CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 
-```sh
-# copy the config for development
-cp .env.example .env
-
-# run test
-yarn test
-
-# start the dev server
-yarn dev
+#check if the extension is enabled.
+SELECT * FROM pg_available_extensions WHERE name = 'uuid-ossp';
+SELECT * FROM pg_extensio
 ```
 
 ## How to
 
 ```sh
+# copy the config for development
+cp .env.example .env
+
+# init the project
 npm init -y
-```
 
-init jest
-
-```sh
+# init jest
 npx ts-jest config:init
-```
 
-To run the test
-
-```sh
-# run the test suite
+# run test
 yarn test
 
-# run only specific block
+# run only a specific block
 yarn test -t "should throw an EnvNotFoundError if the variable does not exist and no default value is provided"
 
-```
+# init sequelize in the project and the models, migrations and seeders will be created
+npx sequelize-cli init
 
-## Generate Model with migration
-
-```sh
 # create model and migration
 npx sequelize-cli model:generate --name User --attributes name:string,displayName:string,emojicon:string
 
 # only the migration
 npx sequelize-cli migration:generate --name add-timestamp-to-user
 
-
 # migrate the model
 npx sequelize-cli db:migrate
 
-```
-
-## Useful commands
-
-```sh
-npx sequelize-cli init
-
-# Created "config/config.json"
-# Successfully created models folder at "trailer/models".
-# Successfully created migrations folder at "trailer/migrations".
-# Successfully created seeders folder at "trailer/seeders".
 ```
 
 ## References

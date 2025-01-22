@@ -2,19 +2,19 @@ import { Model, DataTypes } from 'sequelize';
 import sequelize from 'config/database';
 
 class User extends Model {
-  public id!: number;
+  public id!: string;
   public displayName!: string;
   public emojicon!: string;
 
-  public readonly createdAt!: Date;
-  public readonly updatedAt!: Date;
+  public createdAt!: Date;
+  public updatedAt!: Date;
 }
 
 User.init(
   {
     id: {
-      type: DataTypes.INTEGER,
-      autoIncrement: true,
+      type: DataTypes.UUID,
+      defaultValue: DataTypes.UUIDV4,
       primaryKey: true,
     },
     displayName: {
@@ -28,7 +28,9 @@ User.init(
   },
   {
     sequelize,
+    modelName: 'User',
     tableName: 'users',
+    timestamps: true
   }
 );
 

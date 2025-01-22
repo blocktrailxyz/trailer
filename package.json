@@ -15,6 +15,7 @@
     "lint:fix": "eslint 'src/**/*.{ts,js}' --fix",
     "db:migrate": "npm run build && sequelize-cli db:migrate --config dist/config/config.js",
     "db:rollback": "npm run build && sequelize-cli db:migrate:undo --config dist/config/config.js",
+    "db:seeds": "NODE_ENV=development ts-node-dev -r tsconfig-paths/register src/seeders/run_seeds.ts",
     "db:seed": "npm run build && sequelize-cli db:seed::all --config dist/config/config.js",
     "g:migration": "npx sequelize-cli migration:generate --name"
   },
