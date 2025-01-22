@@ -42,6 +42,43 @@ describe('Env', () => {
     });
 
   });
+
+  describe('Env.fetch', () => {
+    const originalEnv = process.env;
+
+    beforeEach(() => {
+      // Reset process.env to avoid side effects
+      process.env = { ...originalEnv };
+    });
+
+    afterEach(() => {
+      // Restore the original process.env
+      process.env = originalEnv;
+    });
+
+    it('should return the environment variable value if it exists', () => {
+      process.env.TEST_KEY = 'test_value';
+      const result = Env.fetch('TEST_KEY');
+      expect(result).toBe('test_value');
+    });
+
+    it('should return the default value if the environment variable is not set', () => {
+      const result = Env.fetch('NON_EXISTENT_KEY', 'default_value');
+      expect(result).toBe('default_value');
+    });
+
+    it('should throw an EnvNotFoundError if the environment variable is not set and no default value is provided', () => {
+      expect(() => Env.fetch('NON_EXISTENT_KEY')).toThrow(EnvNotFoundError);
+    });
+
+    it('should pass the key to the EnvNotFoundError when throwing', () => {
+      try {
+        Env.fetch('NON_EXISTENT_KEY');
+      } catch (error) {
+        expect(error).toBeInstanceOf(EnvNotFoundError);
+      }
+    });
+  });
 });
 
 describe('EnvNotFoundError', () => {
