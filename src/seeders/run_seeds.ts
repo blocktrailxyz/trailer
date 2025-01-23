@@ -1,14 +1,14 @@
 import path from 'path';
 import fs from 'fs/promises';
-import dbClient from 'config/database';
+import sequelize from 'config/database';
 
 const seedsDirectory = path.join(__dirname, 'seeds');
 
 const runSeeds = async () => {
   try {
     console.log('Connecting to the database...');
-    await dbClient.authenticate();
-    await dbClient.sync(); // Ensure tables are up to date
+    await sequelize.authenticate();
+    await sequelize.sync(); // Ensure tables are up to date
 
     console.log(`Running seed files from ${seedsDirectory}...`);
     const files = await fs.readdir(seedsDirectory);
@@ -29,7 +29,7 @@ const runSeeds = async () => {
   } catch (error) {
     console.error('Error running seeds:', error);
   } finally {
-    await dbClient.close();
+    await sequelize.close();
   }
 };
 

@@ -1,12 +1,12 @@
-import dbClient from 'config/database';
+import sequelize from 'config/database';
 import User from 'models/user';
 import { userFactory } from 'factories/user.factory';
 
 const seedUsers = async () => {
   try {
     console.log('Connecting to the database...');
-    await dbClient.authenticate();
-    await dbClient.sync(); // Ensure the tables exist
+    await sequelize.authenticate();
+    await sequelize.sync(); // Ensure the tables exist
 
     console.log('Generating users...');
 
@@ -18,7 +18,7 @@ const seedUsers = async () => {
   } catch (error) {
     console.error('Error seeding users:', error);
   } finally {
-    await dbClient.close();
+    await sequelize.close();
   }
 };
 

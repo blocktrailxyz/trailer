@@ -21,7 +21,6 @@ export const renderJson = async (
   }
 };
 
-
 export const render500Error = (request: FastifyRequest, reply: FastifyReply, error: any) => {
   const statusCode = 500
 
@@ -53,6 +52,18 @@ export const render403Error = (request: FastifyRequest, reply: FastifyReply, err
     status: statusCode.toString(),
     title: 'Forbidden',
     detail: errorMessage || 'Forbidden',
+  };
+
+  reply.status(statusCode).send({ errors: [jsonApiError] });
+}
+
+export const render400Error = (request: FastifyRequest, reply: FastifyReply, errorMessage?: any) => {
+  const statusCode = 400
+
+  const jsonApiError: JsonApiError = {
+    status: statusCode.toString(),
+    title: 'Bad Request',
+    detail: errorMessage || 'Bad Request',
   };
 
   reply.status(statusCode).send({ errors: [jsonApiError] });

@@ -7,7 +7,7 @@ import { paginate, parsePagination } from 'utils/paginate';
 jest.mock('models/user');
 jest.mock('utils/paginate');
 
-describe('User Controller', () => {
+describe('UsersController', () => {
   let mockReply: FastifyReply;
 
   beforeEach(() => {
