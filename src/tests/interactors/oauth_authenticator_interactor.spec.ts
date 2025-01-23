@@ -1,6 +1,6 @@
 import OauthAuthenticator from 'services/oauth_authenticator';
 
-import { Provider } from 'models/authentication';
+import { OauthProvider } from 'models/authentication';
 import axios from 'axios';
 import User from 'models/user';
 import Authentication from 'models/authentication';
@@ -31,7 +31,7 @@ describe('OauthAuthenticator', () => {
     });
 
     const result = await OauthAuthenticator.call({
-      provider: Provider.Google,
+      provider: OauthProvider.Google,
       token: 'valid-google-token',
     });
 
@@ -53,7 +53,7 @@ describe('OauthAuthenticator', () => {
     });
 
     const options = {
-      provider: Provider.Google,
+      provider: OauthProvider.Google,
       token: 'valid-google-token',
       displayName: faker.person.fullName(),
       emojicon: faker.internet.emoji(),
@@ -67,7 +67,7 @@ describe('OauthAuthenticator', () => {
     expect(result.isNewUser).toEqual(true)
     expect(result.user.displayName).toEqual( options.displayName)
     expect(result.user.emojicon).toEqual( options.emojicon)
-    expect(result.authentication.provider).toEqual(Provider.Google)
+    expect(result.authentication.provider).toEqual(OauthProvider.Google)
     expect(result.authentication.userId).toEqual(result.user.id)
     expect(result.authentication.providerId).toEqual(mockGoogleApiResponse.sub)
   });
@@ -75,7 +75,7 @@ describe('OauthAuthenticator', () => {
   it('should throw an error for an invalid provider', async () => {
     await expect(
       OauthAuthenticator.call({
-        provider: 'invalid' as Provider,
+        provider: 'invalid' as OauthProvider,
         token: 'some-token',
       })
     ).rejects.toThrow('Invalid provider');
@@ -87,7 +87,7 @@ describe('OauthAuthenticator', () => {
 
     await expect(
       OauthAuthenticator.call({
-        provider: Provider.Google,
+        provider: OauthProvider.Google,
         token: 'invalid-google-token',
       })
     ).rejects.toThrow('Failed to fetch provider ID');

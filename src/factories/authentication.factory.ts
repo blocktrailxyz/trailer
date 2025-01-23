@@ -1,12 +1,12 @@
 import { Factory } from './factory'; // Adjust the path based on your Factory implementation
 import { userFactory } from './user.factory'; // Import your existing user factory
-import Authentication, { Provider } from '../models/authentication'; // Adjust to your Authentication model
+import Authentication, { OauthProvider } from '../models/authentication'; // Adjust to your Authentication model
 import User from '../models/user'; // Adjust to your User model
 import { faker } from '@faker-js/faker/.';
 
 // Authentication Factory
 export const authenticationFactory = new Factory<Partial<Authentication>>(() => ({
-  provider: Provider.Google, // Default provider is Google
+  provider: OauthProvider.Google, // Default provider is Google
   providerId: faker.string.uuid(), // Generate a unique provider ID
   createdAt: new Date(),
   updatedAt: new Date(),
@@ -50,5 +50,5 @@ export const authenticationWithUserFactory = {
 
 // const { user, authentication } = authenticationWithUserFactory.build(
 //   { displayName: 'Alice Doe' },
-//   { provider: Provider.GitHub, providerId: 'github-id-123' }
+//   { provider: OauthProvider.GitHub, providerId: 'github-id-123' }
 // );

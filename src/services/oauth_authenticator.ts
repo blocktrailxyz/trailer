@@ -1,9 +1,9 @@
 import axios from 'axios';
 import User from 'models/user';
-import Authentication, {Provider} from 'models/authentication';
+import Authentication, {OauthProvider} from 'models/authentication';
 
 export interface OAuthParams {
-  provider: Provider;
+  provider: OauthProvider;
   token: string;
   displayName?: string;
   emojicon?: string;
@@ -20,7 +20,7 @@ class OauthAuthenticator {
     const { provider, token, displayName, emojicon } = params;
 
     // Validate provider
-    if (!Object.values(Provider).includes(provider)) {
+    if (!Object.values(OauthProvider).includes(provider)) {
       throw new Error('Invalid provider');
     }
 
@@ -50,11 +50,11 @@ class OauthAuthenticator {
 
   private static async getProviderId(provider: string, token: string): Promise<string | null> {
     switch (provider) {
-      case Provider.Google:
+      case OauthProvider.Google:
         return this.fetchGoogleUserId(token);
-      case Provider.GitHub:
+      case OauthProvider.GitHub:
         return this.fetchGitHubUserId(token);
-      case Provider.Telegram:
+      case OauthProvider.Telegram:
         return this.fetchTelegramUserId(token);
       default:
         return null;
