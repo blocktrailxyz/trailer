@@ -11,6 +11,12 @@ export enum Provider {
   Base = 'base',
 }
 
+export enum BlockchainProvider {
+  Sui = 'sui',
+  Sol = 'sol',
+  Base = 'base',
+}
+
 class Authentication extends Model {
   public id!: string;
   public userId!: string;

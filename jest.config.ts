@@ -5,29 +5,34 @@
 //     "^.+.tsx?$": ["ts-jest",{}],
 //   },
 // };
+import type { Config } from 'jest';
 
-module.exports = {
+const config: Config = {
   preset: 'ts-jest',
+  // preset: 'ts-jest/presets/default-esm',
   testEnvironment: 'node',
   testMatch: ['**/?(*.)+(spec|test).[jt]s?(x)'], // Match test files
   moduleFileExtensions: ['ts', 'js'], // Recognize TS and JS files
   moduleDirectories: ['node_modules', 'src'],
   setupFilesAfterEnv: ['<rootDir>/jest.setup.ts'], //
   maxWorkers: 1, // run test sequentially
+  extensionsToTreatAsEsm: ['.ts'],
+  moduleNameMapper: {
+    '^(\\.{1,2}/.*)\\.js$': '$1', // Remove ".js" extensions in imports
+  },
   transform: {
     '^.+\\.tsx?$': ['ts-jest', {
       tsconfig: 'tsconfig.json', // Path to your TypeScript config file
       diagnostics: true,        // Enable diagnostics to catch TypeScript issues
     }],
   },
-  
-  // globals: {
-  //   'ts-jest': {
-  //     tsconfig: 'tsconfig.json', // Use your existing TypeScript config
-  //   },
-  // },
+  transformIgnorePatterns: [
+    // Ignore all node_modules except @mysten/sui
+    // 'node_modules/(?!(?:@mysten/sui)/)',
+  ],
 };
 
+export default config;
 
 // module.exports = {
 //   preset: 'ts-jest', // Preset for TypeScript with Jest

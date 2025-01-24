@@ -2,6 +2,13 @@ import axios from 'axios';
 import User from 'models/user';
 import Authentication, {Provider} from 'models/authentication';
 
+
+export interface AuthResult {
+  user: User;
+  authentication: Authentication;
+  isNewUser: boolean;
+}
+
 export interface OAuthParams {
   provider: Provider;
   token: string;
@@ -9,14 +16,8 @@ export interface OAuthParams {
   emojicon?: string;
 }
 
-export interface OAuthResult {
-  user: User;
-  authentication: Authentication;
-  isNewUser: boolean;
-}
-
 class OauthAuthenticator {
-  static async call(params: OAuthParams): Promise<OAuthResult> {
+  static async call(params: OAuthParams): Promise<AuthResult> {
     const { provider, token, displayName, emojicon } = params;
 
     // Validate provider
