@@ -2,14 +2,24 @@ import { DataTypes, Model } from 'sequelize';
 import sequelize from 'config/database';
 import User from 'models/user';
 
-export enum Provider {
+export enum OauthProvider {
   Google = 'google',
   GitHub = 'github',
-  Telegram = 'telegram',
+  Telegram = 'telegram'
+}
+
+export enum BlockchainProvider {
   Sui = 'sui',
   Sol = 'sol',
   Base = 'base',
 }
+
+export const Provider = {
+  ...OauthProvider,
+  ...BlockchainProvider,
+}  as const;
+
+export type Provider = typeof Provider[keyof typeof Provider];
 
 class Authentication extends Model {
   public id!: string;

@@ -1,4 +1,4 @@
-import { isBlank } from './../../../utils/support';
+import { isBlank } from 'utils/support';
 import { FastifyReply, FastifyRequest } from 'fastify';
 import { UserSerializer } from 'serializers/user';
 import OauthAuthenticator, { OAuthParams } from 'services/oauth_authenticator';
