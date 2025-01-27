@@ -19,8 +19,9 @@
     "db:seed": "npm run build && sequelize-cli db:seed::all --config dist/config/config.js",
     "g:migration": "npx sequelize-cli migration:generate --name",
     "routes": "NODE_ENV=development ts-node-dev -r tsconfig-paths/register src/scripts/routes.ts",
-    "load:sui_signer": "NODE_ENV=development ts-node-dev -r tsconfig-paths/register src/scripts/load_sui_keypair_signer.ts",
-    "load:solana_signer": "NODE_ENV=development ts-node-dev -r tsconfig-paths/register src/scripts/load_solana_keypair_signer.ts"
+    "signer:sui": "NODE_ENV=development ts-node-dev -r tsconfig-paths/register src/scripts/load_sui_keypair_signer.ts",
+    "signer:solana": "NODE_ENV=development ts-node-dev -r tsconfig-paths/register src/scripts/load_solana_keypair_signer.ts",
+    "signer:base": "NODE_ENV=development ts-node-dev -r tsconfig-paths/register src/scripts/load_base_keypair_signer.ts"
   },
   "keywords": [],
   "author": "",
