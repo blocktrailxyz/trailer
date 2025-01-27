@@ -1,3 +1,4 @@
+import BaseKeypairSigner from 'libs/base_keypair_signer';
 import BlockchainAuthToken, { JwtTokenPayload } from 'libs/blockchain_auth_token';
 import SolanaKeypairSigner from 'libs/solana_keypair_signer';
 import SuiKeypairSigner from 'libs/sui_keypair_signer';
@@ -51,6 +52,9 @@ class BlockchainAuthenticator {
       return decodedPayload;
     }
     else if(decodedPayload.chain == BlockchainProvider.Sol && await SolanaKeypairSigner.verify(decodedPayload.message, signature, walletAddress)) {
+      return decodedPayload;
+    }
+    else if(decodedPayload.chain == BlockchainProvider.Base && await BaseKeypairSigner.verify(decodedPayload.message, signature, walletAddress)) {
       return decodedPayload;
     }
 
