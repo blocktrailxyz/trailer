@@ -17,20 +17,15 @@ describe('SuiKeypairSigner', () => {
     it('should verify a signed message', async () => {
       const signature = await SuiKeypairSigner.sign(keypair, message);
       const address = await SuiKeypairSigner.verify(message, signature, walletAddress);
-      expect(address).toEqual(walletAddress);
+      expect(address).toEqual(true);
     })
 
     it('should throw an error if the address does not match', async () => {
       const signature = await SuiKeypairSigner.sign(keypair, message);
       const wrongAddress = '0xffffffffff';
 
-      await expect(
-        SuiKeypairSigner.verify(
-          message,
-          signature,
-          wrongAddress
-        )
-      ).rejects.toThrow(`Address mismatched`);
+      const result = await SuiKeypairSigner.verify( message, signature, wrongAddress)
+      expect(result).toBe(false)
     })
   })
 })

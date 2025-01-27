@@ -51,3 +51,4 @@ npx sequelize-cli db:migrate
 ## References
 
 - Typescript: <https://fastify.dev/docs/latest/Reference/TypeScript>
+- <https://www.quicknode.com/guides/solana-development/dapps/how-to-authenticate-users-with-a-solana-wallet>

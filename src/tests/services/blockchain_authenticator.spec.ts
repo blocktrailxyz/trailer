@@ -50,7 +50,7 @@ describe('BlockchainAuthenticator', () => {
           signature: 'invalid signature',
           token: authToken
         })
-      ).rejects.toThrow(`Unsupported signature scheme`);
+      ).rejects.toThrow(`Invalid signature`);
     });
   });
 
