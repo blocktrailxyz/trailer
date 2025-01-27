@@ -21,18 +21,21 @@ class SuiKeypairSigner {
    * @param address - Expected SUI address
    * @returns Verified SUI address
    */
-  public static async verify(message: string, signature: string, address: string): Promise<string> {
+  public static async verify(message: string, signature: string, address: string): Promise<boolean> {
     const messageBytes = new TextEncoder().encode(message);
+    try {
+      // Verify the signature
+      const publickey = await verifyPersonalMessageSignature(messageBytes, signature);
+      const suiAddress = publickey.toSuiAddress();
 
-    // Verify the signature
-    const publickey = await verifyPersonalMessageSignature(messageBytes, signature);
-    const suiAddress = publickey.toSuiAddress();
+      if (suiAddress !== address)
+        return Promise.resolve(false)
 
-    if (suiAddress !== address) {
-      throw new Error(`Address mismatched`);
+      return Promise.resolve(true);
     }
-
-    return suiAddress;
+    catch {
+      return Promise.resolve(false);
+    }
   }
 }
 

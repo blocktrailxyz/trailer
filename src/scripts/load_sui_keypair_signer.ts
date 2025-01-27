@@ -16,9 +16,6 @@ import SuiKeypairSigner from 'libs/sui_keypair_signer';
   // with incorrect address
   const keypairA = new Ed25519Keypair();
   const otherWalletAddress = keypairA.getPublicKey().toSuiAddress();
-  try {
-    await SuiKeypairSigner.verify(message, signature, otherWalletAddress)
-  } catch(error) {
-    console.log(`address: ${otherWalletAddress} failed: ${error}`);
-  }
+  const verified = await SuiKeypairSigner.verify(message, signature, otherWalletAddress)
+  console.log('verified: ', verified);
 })();

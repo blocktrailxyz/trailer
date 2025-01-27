@@ -1,4 +1,5 @@
 import BlockchainAuthToken, { JwtTokenPayload } from 'libs/blockchain_auth_token';
+import SolanaKeypairSigner from 'libs/solana_keypair_signer';
 import SuiKeypairSigner from 'libs/sui_keypair_signer';
 import Authentication, { BlockchainProvider } from 'models/authentication';
 import User from 'models/user';
@@ -46,14 +47,14 @@ class BlockchainAuthenticator {
       throw new Error(`Invalid wallet address ${decodedPayload.walletAddress} for ${walletAddress}`);
     }
 
-    if(decodedPayload.chain == BlockchainProvider.Sui) {
-      const suiAddress = await SuiKeypairSigner.verify(decodedPayload.message, signature, walletAddress)
-
-      if(suiAddress !== walletAddress) {
-        throw new Error(`Invalid signature: ${signature} for wallets: [${walletAddress}, ${suiAddress}]`)
-      }
-      return decodedPayload
+    if(decodedPayload.chain == BlockchainProvider.Sui && await SuiKeypairSigner.verify(decodedPayload.message, signature, walletAddress)) {
+      return decodedPayload;
     }
+    else if(decodedPayload.chain == BlockchainProvider.Sol && await SolanaKeypairSigner.verify(decodedPayload.message, signature, walletAddress)) {
+      return decodedPayload;
+    }
+
+    throw new Error('Invalid signature');
   }
 }
 
