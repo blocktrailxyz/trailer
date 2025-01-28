@@ -1,6 +1,7 @@
 import { FastifyRequest } from 'fastify';
 import { Model, FindOptions, ModelStatic } from 'sequelize';
 import { Serializer } from 'jsonapi-serializer';
+import { Env } from 'libs/env';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 interface PaginateResult<T> {
@@ -39,7 +40,8 @@ export async function paginate<T extends Model>(
 
   // Helper to construct dynamic links
   const constructLink = (pageNum: number): string => {
-    const url = new URL(`${request.protocol}://${request.hostname}${request.url}`);
+    // const url = new URL(`${request.protocol}://${request.hostname}${request.url}`);
+    const url = new URL(`${Env.fetch('APP_HOST', 'http://localhost')}${request.url}`);
     url.searchParams.set('page', pageNum.toString());
     url.searchParams.set('pageSize', pageSize.toString());
     return url.toString();

@@ -4,9 +4,7 @@
 
 ## About
 
-**Trailer** is an open-source, intelligent trading and analytics platform for cryptocurrency enthusiasts and developers. Designed to empower users with professional-grade tools and insights, **Trailer** offers:.
-
-The name "Trailer" symbolizes mobility, adaptability, and support—traits that define this project’s ability to empower users with a strong focus on:
+**Trailer** is an open-source, intelligent trading and analytics platform for cryptocurrency enthusiasts and developers. Designed to empower users with professional-grade tools and insights, **Trailer** offers:
 
 - **Real-Time Insights**: Fetch live price feeds, on-chain data, and social sentiment for comprehensive market analysis.
 - **Predictive Analytics**: Use advanced machine learning models like LSTM and Transformers to predict trends and prices.
