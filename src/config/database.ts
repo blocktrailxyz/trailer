@@ -1,8 +1,8 @@
 import { Env } from "libs/env";
 import { Sequelize } from "sequelize";
 
-const env = new Env(process.env);
-const dbName = env.fetch('NODE_ENV', '') === "test" ? env.fetch('DB_TEST_NAME') : env.fetch('DB_NAME')
+
+const dbName = Env.isTest() ? Env.fetch('DB_TEST_NAME') : Env.fetch('DB_NAME')
 
 const sequelize = new Sequelize({
   dialect: 'postgres',
@@ -11,7 +11,7 @@ const sequelize = new Sequelize({
   database: dbName,
   username: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
-  logging: process.env.NODE_ENV === 'development', // Log SQL queries in development
+  logging: Env.isDevelopment(), // Log SQL queries in development
 });
 
 export default sequelize;

@@ -28,6 +28,14 @@ export class Env {
     throw new EnvNotFoundError(key);
   }
 
+  public static isDevelopment(): boolean {
+    return process.env.NODE_ENV === 'development';
+  }
+
+  public static isTest(): boolean {
+    return process.env.NODE_ENV === 'test';
+  }
+
   // Access environment variables using [] operator
   public get(key: string): string | undefined {
     return this.env[key];

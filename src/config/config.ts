@@ -9,6 +9,7 @@ module.exports = {
     host: process.env.DB_HOST,
     port: parseInt(process.env.DB_PORT || '5432', 10),
     dialect: 'postgres',
+    logging: console.log
   },
   test: {
     username: process.env.DB_USER,
@@ -17,6 +18,8 @@ module.exports = {
     host: process.env.DB_HOST,
     port: parseInt(process.env.DB_PORT || '5432', 10),
     dialect: 'postgres',
+    logging: console.log
+
   },
   production: {
     username: process.env.DB_USER,
@@ -25,5 +28,6 @@ module.exports = {
     host: process.env.DB_HOST,
     port: parseInt(process.env.DB_PORT || '5432', 10),
     dialect: 'postgres',
+    logging: false
   },
 };
