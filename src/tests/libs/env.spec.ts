@@ -79,6 +79,36 @@ describe('Env', () => {
       }
     });
   });
+
+  describe('isDevelopment', () => {
+    it('should return true when NODE_ENV is "development"', () => {
+      process.env.NODE_ENV = 'development';
+      expect(Env.isDevelopment()).toBe(true);
+    });
+
+    it('should return false when NODE_ENV is not "development"', () => {
+      process.env.NODE_ENV = 'production';
+      expect(Env.isDevelopment()).toBe(false);
+
+      process.env.NODE_ENV = 'test';
+      expect(Env.isDevelopment()).toBe(false);
+    });
+  });
+
+  describe('isTest', () => {
+    it('should return true when NODE_ENV is "test"', () => {
+      process.env.NODE_ENV = 'test';
+      expect(Env.isTest()).toBe(true);
+    });
+
+    it('should return false when NODE_ENV is not "test"', () => {
+      process.env.NODE_ENV = 'development';
+      expect(Env.isTest()).toBe(false);
+
+      process.env.NODE_ENV = 'production';
+      expect(Env.isTest()).toBe(false);
+    });
+  });
 });
 
 describe('EnvNotFoundError', () => {
