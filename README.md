@@ -17,21 +17,23 @@ The project is licensed under the **MIT License**, allowing everyone to freely u
 
 ## Requirement
 
-```sh
-# nodejs 23.1
-cat .nvmrc # v23.1.0
+Postgresql
 
-# postgresql
+```sql
+-- postgresql
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 
-#check if the extension is enabled.
+-- check if the extension is enabled with sql
 SELECT * FROM pg_available_extensions WHERE name = 'uuid-ossp';
 SELECT * FROM pg_extensio
 ```
 
-## How to
+Nodejs
 
 ```sh
+# nodejs 23.1
+cat .nvmrc # v23.1.0
+
 # copy the config for development
 cp .env.example .env
 
@@ -44,22 +46,11 @@ npx ts-jest config:init
 # run test
 yarn test
 
-# run only a specific block
-yarn test -t "should throw an EnvNotFoundError if the variable does not exist and no default value is provided"
-
-# init sequelize in the project and the models, migrations and seeders will be created
-npx sequelize-cli init
-
-# create model and migration
-npx sequelize-cli model:generate --name User --attributes name:string,displayName:string,emojicon:string
-
-# only the migration
-npx sequelize-cli migration:generate --name add-timestamp-to-user
-
-# migrate the model
-npx sequelize-cli db:migrate
-
 ```
+
+## Frontend
+
+The frontend app is in Nextjs under the /frontend directory.
 
 ## References
 
