@@ -1,5 +1,5 @@
 import BlockchainAuthenticator from 'services/blockchain_authenticator';
-import BlockchainAuthToken, { JwtTokenPayload } from 'libs/blockchain_auth_token';
+import BlockchainAuthToken, { JwtTokenPayload } from 'libs/blockchain_challenge';
 import SuiKeypairSigner from 'libs/sui_keypair_signer';
 import { Ed25519Keypair } from '@mysten/sui/keypairs/ed25519';
 import Authentication, { BlockchainProvider } from 'models/authentication';
@@ -14,7 +14,7 @@ describe('BlockchainAuthenticator', () => {
 
   describe('verify signature', () => {
     it('should verify a valid token and signature', async () => {
-      const authToken = BlockchainAuthToken.sign(message, walletAddress);
+      const authToken = BlockchainAuthToken.sign(message, walletAddress, BlockchainProvider.Sui);
       const signature = await SuiKeypairSigner.sign(keypair, message);
 
       const result = await BlockchainAuthenticator.verify({
@@ -29,7 +29,7 @@ describe('BlockchainAuthenticator', () => {
     });
 
     it('should throw an error if wallet address does not match', async () => {
-      const authToken = BlockchainAuthToken.sign(message, '0x456def');
+      const authToken = BlockchainAuthToken.sign(message, '0x456def', BlockchainProvider.Sui);
       const signature = await SuiKeypairSigner.sign(keypair, message);
 
       await expect(
@@ -42,7 +42,7 @@ describe('BlockchainAuthenticator', () => {
     });
 
     it('should throw an error if signature is invalid', async () => {
-      const authToken = BlockchainAuthToken.sign(message, walletAddress);
+      const authToken = BlockchainAuthToken.sign(message, walletAddress, BlockchainProvider.Sui);
 
       await expect(
         BlockchainAuthenticator.verify({
@@ -56,7 +56,7 @@ describe('BlockchainAuthenticator', () => {
 
   describe('call', () => {
     it('should return an existing user and authentication if found', async () => {
-      const authToken = BlockchainAuthToken.sign(message, walletAddress);
+      const authToken = BlockchainAuthToken.sign(message, walletAddress, BlockchainProvider.Sui);
       const signature = await SuiKeypairSigner.sign(keypair, message);
 
       const { user, authentication } = await authenticationWithUserFactory.create(
@@ -75,7 +75,7 @@ describe('BlockchainAuthenticator', () => {
     });
 
     it('should create a new user and authentication if not found', async () => {
-      const authToken = BlockchainAuthToken.sign(message, walletAddress);
+      const authToken = BlockchainAuthToken.sign(message, walletAddress, BlockchainProvider.Sui);
       const signature = await SuiKeypairSigner.sign(keypair, message);
 
       const result = await BlockchainAuthenticator.call({

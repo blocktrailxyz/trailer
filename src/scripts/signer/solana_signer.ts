@@ -8,7 +8,6 @@ import SolanaKeypairSigner from "libs/solana_keypair_signer";
 
   // Sign the message
   const signature = await SolanaKeypairSigner.sign(keypair, message);
-  console.log("Signature:", signature);
 
   // Verify the signature
   const isValid = await SolanaKeypairSigner.verify(

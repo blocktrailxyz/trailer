@@ -22,7 +22,7 @@ module.exports = {
         onDelete: 'CASCADE',
       },
       provider: {
-        type: Sequelize.ENUM('google', 'github', 'telegram'),
+        type: Sequelize.STRING,
         allowNull: false,
       },
       providerId: {
