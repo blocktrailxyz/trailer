@@ -1,5 +1,5 @@
 import Fastify from "fastify";
-import { create } from "controllers/api/v1/signatures"; // Adjust the path
+import { create } from "controllers/api/v1/signatures_controller"; // Adjust the path
 import BlockchainAuthenticator from "services/blockchain_authenticator";
 import User from "models/user";
 import { authenticationWithUserFactory } from "factories/authentication.factory";

@@ -2,8 +2,8 @@ import fastify from 'fastify'
 import fastifyCors from '@fastify/cors';
 import { Env } from 'libs/env';
 import { getLogOptions } from 'libs/logger';
-import { metricsMiddleware } from 'middlewares/metrics';
-import routes from 'routes';
+import { metricsMiddleware } from 'middlewares/metrics_middleware';
+import routes from 'routes/index_route';
 
 const app = fastify({ logger: getLogOptions() })
 

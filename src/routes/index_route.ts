@@ -1,10 +1,10 @@
 import { FastifyInstance } from 'fastify';
-import homeRoutes from './home';
+import homeRoutes from './home_route';
 
-import userRoutes from './api/v1/users';
-import oauthRoutes from './api/v1/oauth';
-import challengeRoutes from './api/v1/challenge';
-import signatureRoutes from './api/v1/signature';
+import userRoutes from './api/v1/users_route';
+import oauthRoutes from './api/v1/oauths_route';
+import challengeRoutes from './api/v1/challenges_route';
+import signatureRoutes from './api/v1/signatures_route';
 
 export default async function routes(fastify: FastifyInstance) {
   // Home page route

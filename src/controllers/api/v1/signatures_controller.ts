@@ -1,7 +1,7 @@
 import { FastifyReply, FastifyRequest } from 'fastify';
-import { renderJson } from 'utils/render_json';
+import { renderJson } from 'helpers/render_json_helper';
 import BlockchainAuthenticator, { BlockchainAuthParams } from 'services/blockchain_authenticator';
-import { UserSerializer } from 'serializers/user';
+import { UserSerializer } from 'serializers/user_serializer';
 
 export const create = async (request: FastifyRequest, reply: FastifyReply) => {
   await renderJson(async() => {

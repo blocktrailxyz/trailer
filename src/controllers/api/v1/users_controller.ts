@@ -1,9 +1,9 @@
 import { FastifyReply, FastifyRequest } from 'fastify';
 import User from 'models/user';
-import { IUserSerializer, UserSerializer } from 'serializers/user';
+import { IUserSerializer, UserSerializer } from 'serializers/user_serializer';
 import { JsonApiResponseType } from 'types/json_api_response_type';
-import { paginate, parsePagination } from 'utils/paginate';
-import { render404Error, renderJson } from 'utils/render_json';
+import { paginate, parsePagination } from 'helpers/paginate_helper';
+import { render404Error, renderJson } from 'helpers/render_json_helper';
 
 export const index = async (request: FastifyRequest, reply: FastifyReply) => {
   await renderJson(async () => {

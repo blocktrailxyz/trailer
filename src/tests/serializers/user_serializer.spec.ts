@@ -1,5 +1,5 @@
 import { userFactory } from 'factories/user.factory';
-import { UserSerializer } from 'serializers/user';
+import { UserSerializer } from 'serializers/user_serializer';
 import User from 'models/user'
 // import { JsonApiResponseType } from 'types/json_api_response';
 
