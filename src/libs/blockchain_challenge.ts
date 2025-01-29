@@ -2,22 +2,26 @@ import { BlockchainProvider } from "models/authentication";
 import jwt from "jsonwebtoken";
 import { Env } from "libs/env";
 
+export interface BlockchainChallengePayload {
+  walletAddress: string;
+  chain: BlockchainProvider;
+}
+
 export interface JwtTokenPayload {
   walletAddress: string;
   message: string;
-  chain: string;
+  chain: BlockchainProvider;
 }
 
-export default class BlockchainAuthToken {
+export default class BlockchainChallenge {
 
   private static messageNonce: number = 0;
 
   // send this to client to sign the message
-  public static sign(message: string, walletAddress: string): string {
-    // const message = `Please sign this message: ${this.nonce()} with address: ${walletAddress}`;
-    const payload: JwtTokenPayload = { walletAddress, message, chain: BlockchainProvider.Sui }
-
-    const token = jwt.sign( payload, this.secret(), { expiresIn: '5m' }) // Token expires in 5 minutes
+  public static sign(message: string, walletAddress: string, chain: BlockchainProvider): string {
+    const payload: JwtTokenPayload = { walletAddress, message, chain: chain }
+    const expiresIn = parseInt(Env.fetch('CHALLENGE_MAX_TTL', '3600')) // 5 minutes
+    const token = jwt.sign( payload, this.secret(), { expiresIn: expiresIn }) // Token expires in 5 minutes
     return token ;
   }
 

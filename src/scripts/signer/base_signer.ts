@@ -13,7 +13,6 @@ import BaseKeypairSigner from "libs/base_keypair_signer";
 
   // Sign the message
   const signature = await BaseKeypairSigner.sign(privateKey, message);
-  console.log("Signature:", signature);
 
   // Verify the signature
   const isValid = await BaseKeypairSigner.verify(publicKey, message, signature);

@@ -97,8 +97,6 @@ describe('UsersController', () => {
       expect(User.findByPk).toHaveBeenCalledWith('1');
       expect(mockReply.status).toHaveBeenCalledWith(404);
 
-      // console.log('mockReply.send', mockReply.send)
-
       expect(mockReply.send).toHaveBeenCalledWith({
         errors: [
           {

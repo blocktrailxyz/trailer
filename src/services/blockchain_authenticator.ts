@@ -1,5 +1,5 @@
 import BaseKeypairSigner from 'libs/base_keypair_signer';
-import BlockchainAuthToken, { JwtTokenPayload } from 'libs/blockchain_auth_token';
+import BlockchainAuthToken, { JwtTokenPayload } from 'libs/blockchain_challenge';
 import SolanaKeypairSigner from 'libs/solana_keypair_signer';
 import SuiKeypairSigner from 'libs/sui_keypair_signer';
 import Authentication, { BlockchainProvider } from 'models/authentication';
@@ -19,7 +19,7 @@ export interface BlockchainAuthParams {
 
 class BlockchainAuthenticator {
   static async call(params: BlockchainAuthParams): Promise<AuthResult>{
-    const {walletAddress, chain} = await this.verify(params) as JwtTokenPayload;
+    const { walletAddress, chain } = await this.verify(params) as JwtTokenPayload;
 
     // Check if the user already exists
     const existingAuth = await Authentication.findOne({ where: { provider: chain, providerId: walletAddress } });
@@ -44,6 +44,7 @@ class BlockchainAuthenticator {
   public static async verify(params: BlockchainAuthParams): Promise<JwtTokenPayload|undefined> {
     const { walletAddress, signature, token } = params;
     const decodedPayload = await BlockchainAuthToken.verify(token) as JwtTokenPayload
+
     if(decodedPayload.walletAddress !== walletAddress){
       throw new Error(`Invalid wallet address ${decodedPayload.walletAddress} for ${walletAddress}`);
     }

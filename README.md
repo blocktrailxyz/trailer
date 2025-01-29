@@ -56,3 +56,4 @@ The frontend app is in Nextjs under the /frontend directory.
 
 - Typescript: <https://fastify.dev/docs/latest/Reference/TypeScript>
 - <https://www.quicknode.com/guides/solana-development/dapps/how-to-authenticate-users-with-a-solana-wallet>
+- Postman: <https://documenter.getpostman.com/view/41265322/2sAYQiB87a>

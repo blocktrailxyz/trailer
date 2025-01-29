@@ -80,6 +80,21 @@ describe('Env', () => {
     });
   });
 
+  describe('isProduction', () => {
+    it('should return true when NODE_ENV is "production"', () => {
+      process.env.NODE_ENV = 'production';
+      expect(Env.isProduction()).toBe(true);
+    });
+
+    it('should return false when NODE_ENV is not "production"', () => {
+      process.env.NODE_ENV = 'development';
+      expect(Env.isProduction()).toBe(false);
+
+      process.env.NODE_ENV = 'test';
+      expect(Env.isProduction()).toBe(false);
+    });
+  });
+
   describe('isDevelopment', () => {
     it('should return true when NODE_ENV is "development"', () => {
       process.env.NODE_ENV = 'development';
