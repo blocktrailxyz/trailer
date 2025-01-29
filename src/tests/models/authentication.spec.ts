@@ -1,3 +1,4 @@
+
 import User from 'models/user';
 import Authentication from 'models/authentication';
 import { authenticationWithUserFactory } from 'factories/authentication.factory';

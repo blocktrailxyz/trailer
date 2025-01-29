@@ -1,4 +1,4 @@
-import Support from 'utils/support';
+import Support from 'helpers/support_helper';
 
 describe('Support.isBlank', () => {
   it('should return true for undefined', () => {

@@ -1,5 +1,5 @@
 import Fastify from "fastify";
-import { create } from "controllers/api/v1/challenges"; // Adjust the path as necessary
+import { create } from "controllers/api/v1/challenges_controller"; // Adjust the path as necessary
 
 describe("POST /api/v1/challenges", () => {
   const fastify = Fastify();

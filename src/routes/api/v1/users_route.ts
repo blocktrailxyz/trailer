@@ -1,5 +1,5 @@
 import { FastifyInstance } from 'fastify';
-import * as usersController from 'controllers/api/v1/users';
+import * as usersController from 'controllers/api/v1/users_controller';
 import { ParamIdType } from 'types/param_id_type';
 
 export default async function userRoutes(fastify: FastifyInstance) {

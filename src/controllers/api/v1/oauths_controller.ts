@@ -1,8 +1,8 @@
-import { isBlank } from 'utils/support';
+import { isBlank } from 'helpers/support_helper';
 import { FastifyReply, FastifyRequest } from 'fastify';
-import { UserSerializer } from 'serializers/user';
+import { UserSerializer } from 'serializers/user_serializer';
 import OauthAuthenticator, { OAuthParams } from 'services/oauth_authenticator';
-import { render400Error, renderJson } from 'utils/render_json';
+import { render400Error, renderJson } from 'helpers/render_json_helper';
 
 export const create = async (request: FastifyRequest, reply: FastifyReply) => {
   await renderJson(async() =>{

@@ -1,7 +1,7 @@
 import { FastifyReply, FastifyRequest } from 'fastify';
-import { render400Error, renderJson } from 'utils/render_json';
+import { render400Error, renderJson } from 'helpers/render_json_helper';
 import BlockchainChallenge, { BlockchainChallengePayload } from 'libs/blockchain_challenge';
-import { BlockchainChallengeSerializer } from 'serializers/blockchain_challenge';
+import { BlockchainChallengeSerializer } from 'serializers/blockchain_challenge_serializer';
 
 export const create = async (request: FastifyRequest, reply: FastifyReply) => {
   await renderJson(async() => {

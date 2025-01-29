@@ -1,11 +1,11 @@
 import { FastifyRequest, FastifyReply } from 'fastify';
 import User from 'models/user';
-import * as Controller from 'controllers/api/v1/users';
-import { UserSerializer } from 'serializers/user';
-import { paginate, parsePagination } from 'utils/paginate';
+import * as Controller from 'controllers/api/v1/users_controller';
+import { UserSerializer } from 'serializers/user_serializer';
+import { paginate, parsePagination } from 'helpers/paginate_helper';
 
 jest.mock('models/user');
-jest.mock('utils/paginate');
+jest.mock('helpers/paginate_helper');
 
 describe('UsersController', () => {
   let mockReply: FastifyReply;

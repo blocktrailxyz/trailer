@@ -1,6 +1,6 @@
 
 import { FastifyRequest, FastifyReply } from 'fastify';
-import { renderJson } from 'utils/render_json';
+import { renderJson } from 'helpers/render_json_helper';
 
 describe('renderJson', () => {
   let mockRequest: FastifyRequest;

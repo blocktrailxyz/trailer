@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { paginate, PaginationParams, parsePagination } from 'utils/paginate';
+import { paginate, PaginationParams, parsePagination } from 'helpers/paginate_helper';
 import { Serializer } from 'jsonapi-serializer';
 import { ModelStatic, FindOptions } from 'sequelize';
 import { FastifyRequest } from 'fastify';

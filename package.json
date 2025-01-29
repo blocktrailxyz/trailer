@@ -15,15 +15,16 @@
     "lint": "eslint 'src/**/*.{ts,js}'",
     "lint:fix": "eslint 'src/**/*.{ts,js}' --fix",
     "db:migrate": "npm run build && sequelize-cli db:migrate --config dist/config/config.js",
-    "db:reset": "NODE_ENV=development ts-node-dev -r tsconfig-paths/register src/scripts/db/db_reset.ts",
+    "db:reset": "NODE_ENV=development ts-node-dev -r tsconfig-paths/register src/scripts/db/db_reset_script.ts",
     "db:rollback": "npm run build && sequelize-cli db:migrate:undo --config dist/config/config.js",
     "db:seeds": "NODE_ENV=development ts-node-dev -r tsconfig-paths/register src/seeders/run_seeds.ts",
     "db:seed": "npm run build && sequelize-cli db:seed::all --config dist/config/config.js",
     "g:migration": "npx sequelize-cli migration:generate --name",
-    "routes": "NODE_ENV=development ts-node-dev -r tsconfig-paths/register src/scripts/routes.ts",
-    "signer:sui": "NODE_ENV=development ts-node-dev -r tsconfig-paths/register src/scripts/signer/sui_signer.ts",
-    "signer:solana": "NODE_ENV=development ts-node-dev -r tsconfig-paths/register src/scripts/signer/solana_signer.ts",
-    "signer:base": "NODE_ENV=development ts-node-dev -r tsconfig-paths/register src/scripts/signer/base_signer.ts"
+
+    "routes": "NODE_ENV=development ts-node-dev -r tsconfig-paths/register src/scripts/routes_script.ts",
+    "signer:sui": "NODE_ENV=development ts-node-dev -r tsconfig-paths/register src/scripts/signer/sui_signer_script.ts",
+    "signer:solana": "NODE_ENV=development ts-node-dev -r tsconfig-paths/register src/scripts/signer/solana_signer_script.ts",
+    "signer:base": "NODE_ENV=development ts-node-dev -r tsconfig-paths/register src/scripts/signer/base_signer_script.ts"
   },
   "keywords": [],
   "author": "",

@@ -3,7 +3,7 @@ import { authenticationWithUserFactory } from 'factories/authentication.factory'
 import fastify from 'fastify';
 import Authentication from 'models/authentication';
 import User from 'models/user';
-import routes from "routes";
+import routes from "routes/index_route";
 import OauthAuthenticator from 'services/oauth_authenticator';
 
 // Mock OauthAuthenticator service
