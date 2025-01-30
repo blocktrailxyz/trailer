@@ -1,44 +1,38 @@
-import crypto from "crypto";
+import { Wallet, hashMessage, verifyMessage } from "ethers";
 
-/**
- * Class for handling Base-specific signing and verification
- */
-class BaseKeypairSigner {
-  private static readonly algorithm = "sha256";
-
+export default class BaseKeypairSigner {
   /**
-   * Signs a message using a private key.
-   * @param privateKey The private key used for signing (in PEM format).
-   * @param message The message to sign.
-   * @returns The base64-encoded signature.
+   * Signs a message using EIP-191 (personal sign) with the provided private key.
+   * @param privateKey - The Ethereum private key (must start with '0x').
+   * @param message - The message to sign.
+   * @returns A promise resolving to the signature string.
    */
-  public static async sign(privateKey: string, message: string): Promise<string> {
-    const sign = crypto.createSign(this.algorithm);
-    sign.update(message);
-    sign.end();
-
-    const signature = sign.sign(privateKey);
-    return signature.toString("base64");
+  static async sign(privateKey: string, message: string): Promise<string> {
+    if (!privateKey.startsWith("0x")) {
+      throw new Error("Private key must start with '0x'");
+    }
+    
+    const wallet = new Wallet(privateKey);
+    const hashedMessage = hashMessage(message); // Personal sign (EIP-191)
+    return await wallet.signMessage(hashedMessage);
   }
 
   /**
-   * Verifies a message and signature using a public key.
-   * @param publicKey The public key used for verification (in PEM format).
-   * @param message The original message.
-   * @param signature The base64-encoded signature to verify.
-   * @returns A boolean indicating whether the signature is valid.
+   * Verifies a signed message and returns the recovered Ethereum address.
+   * @param message - The original message.
+   * @param signature - The signed message.
+   * @returns The recovered Ethereum address.
    */
-  public static async verify(
-    publicKey: string,
-    message: string,
-    signature: string
-  ): Promise<boolean> {
-    const verify = crypto.createVerify(this.algorithm);
-    verify.update(message);
-    verify.end();
+  static verify(message: string, signature: string, publicKey: string): Promise<boolean> {
+    try {
+      const hashedMessage = hashMessage(message); // Ensure verification uses EIP-191 hashing
+      const ethAddress = verifyMessage(hashedMessage, signature);
+      const result = publicKey == ethAddress
 
-    return verify.verify(publicKey, Buffer.from(signature, "base64"));
+      return Promise.resolve(result);
+    }
+    catch {
+      return Promise.resolve(false);
+    }
   }
 }
-
-export default BaseKeypairSigner;

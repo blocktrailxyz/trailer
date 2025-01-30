@@ -3,7 +3,6 @@ import { Keypair } from "@solana/web3.js";
 import SolanaKeypairSigner from "libs/solana_keypair_signer";
 import Table from 'cli-table3';
 
-
 (async () => {
 
   // Create a table
@@ -22,7 +21,7 @@ import Table from 'cli-table3';
   let secretKey: string;
   let existingKey: boolean = true;
 
-  table.push(['Private key', defaultSecretKey]);
+  table.push(['Default Private key', defaultSecretKey]);
 
   if( defaultSecretKey === '') {
     keypair = Keypair.generate();
