@@ -60,7 +60,7 @@ Authentication.init(
   }
 );
 
-// Authentication.belongsTo(User, { foreignKey: 'userId' });
-// User.hasMany(Authentication, { foreignKey: 'userId' });
+Authentication.belongsTo(User, { foreignKey: 'userId' });
+User.hasMany(Authentication, { foreignKey: 'userId' });
 
 export default Authentication;

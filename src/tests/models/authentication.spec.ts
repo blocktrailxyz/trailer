@@ -2,40 +2,26 @@
 import User from 'models/user';
 import Authentication from 'models/authentication';
 import { authenticationWithUserFactory } from 'factories/authentication.factory';
+import { DataTypes } from 'sequelize';
 
-jest.mock('models/user');
-jest.mock('models/authentication');
+describe('models/authentication', () => {
+  it('should have correct attributes', async () => {
+    const attributes = Authentication.getAttributes();
+    expect(attributes.id).toBeDefined();
+    expect(attributes.id.type).toBeInstanceOf(DataTypes.UUID);
 
-describe('validUserFactory', () => {
-  beforeEach(() => {
-    jest.clearAllMocks();
+    expect(attributes.userId).toBeDefined();
+    expect(attributes.userId.type).toBeInstanceOf(DataTypes.UUID);
   });
 
   it('should create a valid user and authentication in the database', async () => {
-    const mockUser = { id: 'user-uuid', displayName: 'Alice' };
-    const mockAuth = { id: 123, provider: 'google', providerId: 'google-id' };
-
-    (User.create as jest.Mock).mockResolvedValue(mockUser);
-    (Authentication.create as jest.Mock).mockResolvedValue(mockAuth);
-
     const { user, authentication } = await authenticationWithUserFactory.create(
       { displayName: 'Alice' },
       { provider: 'google', providerId: 'google-id' }
     );
 
-    expect(User.create).toHaveBeenCalledWith(
-      expect.objectContaining({ displayName: 'Alice' })
-    );
-    expect(Authentication.create).toHaveBeenCalledWith(
-      expect.objectContaining({
-        provider: 'google',
-        providerId: 'google-id',
-        userId: 'user-uuid',
-      })
-    );
-
-    expect(user).toEqual(mockUser);
-    expect(authentication).toEqual(mockAuth);
+    expect(user).toBeInstanceOf(User);
+    expect(authentication).toBeInstanceOf(Authentication);
   });
 
   it('should build a valid user and authentication in memory', () => {
