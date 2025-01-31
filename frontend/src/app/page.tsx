@@ -3,6 +3,7 @@
 
 import { useEffect, useState } from "react";
 import api from "../utils/api";
+import { WalletMultiButton } from "@solana/wallet-adapter-react-ui";
 
 export default function Home() {
   const [data, setData] = useState<any>(null);
@@ -23,6 +24,7 @@ export default function Home() {
   return (
     <div>
       <h1>Welcome to the Next.js App</h1>
+      <WalletMultiButton />
       <pre>{JSON.stringify(data, null, 2)}</pre>
     </div>
   );
