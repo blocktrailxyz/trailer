@@ -2,29 +2,40 @@
 "use client"
 
 import { useEffect, useState } from "react";
-import api from "../utils/api";
 import { WalletMultiButton } from "@solana/wallet-adapter-react-ui";
+import { useWallet } from "@solana/wallet-adapter-react";
+import WalletApi from "./api/walletApi";
 
 export default function Home() {
+  const { publicKey, connected } = useWallet();
   const [data, setData] = useState<any>(null);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await api.get("/api/v1/users");
-        setData(response.data);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
-
-    fetchData();
-  }, []);
+  useEffect(() =>{
+    if (connected && publicKey) {
+      const walletAddress = publicKey.toBase58();
+      const registerWallet = async () => {
+        try {
+          const walletApi = new WalletApi();
+          const response = await walletApi.register(walletAddress, 'sol');
+          setData(response.data);
+        } catch (error) {
+          console.error("Error register wallet:", error);
+        }
+      };
+      registerWallet();
+    }
+  }, [connected]);
 
   return (
-    <div>
-      <h1>Welcome to the Next.js App</h1>
-      <WalletMultiButton />
+    <div className="">
+      <div>
+          {publicKey ? (
+            <p>Wallet Address: {publicKey.toBase58()}</p>
+          ) : (
+            <p>Not connected</p>
+          )}
+      </div>
+      <WalletMultiButton style={{}}  />
       <pre>{JSON.stringify(data, null, 2)}</pre>
     </div>
   );
