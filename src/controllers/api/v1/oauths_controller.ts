@@ -10,7 +10,7 @@ export const create = async (request: FastifyRequest, reply: FastifyReply) => {
 
     if (isBlank(provider) || isBlank(token)) {
       const errorMessage = 'Provider and token are required'
-      return render400Error(request, reply, errorMessage)
+      return render400Error(reply, errorMessage)
     }
 
     else {
