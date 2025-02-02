@@ -38,6 +38,7 @@ describe('models/user', () => {
     expect(user.emojicon).toBe('🙂');
     expect(user.createdAt).toBeDefined();
     expect(user.updatedAt).toBeDefined();
+    expect(user.authTokenVersion).toBeDefined();
   });
 
   it('should fail to create a user without displayName', async () => {

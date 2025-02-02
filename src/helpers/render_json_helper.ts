@@ -17,11 +17,11 @@ export const renderJson = async (
     return result;
   }
   catch (error: any) {
-    render500Error(request, reply, error)
+    render500Error(reply, error)
   }
 };
 
-export const render500Error = (request: FastifyRequest, reply: FastifyReply, error: any) => {
+export const render500Error = (reply: FastifyReply, error: any) => {
   const statusCode = 500
 
   const jsonApiError: JsonApiError = {
@@ -33,7 +33,7 @@ export const render500Error = (request: FastifyRequest, reply: FastifyReply, err
   reply.status(statusCode).send({ errors: [jsonApiError] });
 }
 
-export const render404Error = (request: FastifyRequest, reply: FastifyReply, errorMessage?: any) => {
+export const render404Error = (reply: FastifyReply, errorMessage?: any) => {
   const statusCode = 404
 
   const jsonApiError: JsonApiError = {
@@ -45,7 +45,7 @@ export const render404Error = (request: FastifyRequest, reply: FastifyReply, err
   reply.status(statusCode).send({ errors: [jsonApiError] });
 }
 
-export const render403Error = (request: FastifyRequest, reply: FastifyReply, errorMessage?: any) => {
+export const render403Error = (reply: FastifyReply, errorMessage?: any) => {
   const statusCode = 403
 
   const jsonApiError: JsonApiError = {
@@ -57,7 +57,19 @@ export const render403Error = (request: FastifyRequest, reply: FastifyReply, err
   reply.status(statusCode).send({ errors: [jsonApiError] });
 }
 
-export const render400Error = (request: FastifyRequest, reply: FastifyReply, errorMessage?: any) => {
+export const render401Error = (reply: FastifyReply, errorMessage?: any) => {
+  const statusCode = 401
+
+  const jsonApiError: JsonApiError = {
+    status: statusCode.toString(),
+    title: 'Unauthorized',
+    detail: errorMessage || 'Unauthorized',
+  };
+
+  reply.status(statusCode).send({ errors: [jsonApiError] });
+}
+
+export const render400Error = (reply: FastifyReply, errorMessage?: any) => {
   const statusCode = 400
 
   const jsonApiError: JsonApiError = {

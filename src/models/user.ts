@@ -1,5 +1,6 @@
 import { Model, DataTypes } from 'sequelize';
 import sequelize from 'config/database';
+import UserAuthTokenSigner from 'libs/user_auth_token_signer';
 
 class User extends Model {
   public id!: string;
@@ -23,8 +24,22 @@ class User extends Model {
   public notificationPreferences!: object;
   public darkModeEnabled!: boolean;
 
+  public authTokenVersion!: number;
+
   public createdAt!: Date;
   public updatedAt!: Date;
+
+  // virtual fields
+  private accessToken!: string;
+
+  public jwtToken(): string {
+    if(this.accessToken == undefined) {
+      this.accessToken = UserAuthTokenSigner.sign(this);
+      return this.accessToken
+    }
+
+    return this.accessToken;
+  }
 }
 
 User.init(
@@ -101,6 +116,12 @@ User.init(
       type: DataTypes.BOOLEAN,
       allowNull: false,
       defaultValue: false,
+    },
+
+    authTokenVersion: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      defaultValue: 0,
     },
   },
   {

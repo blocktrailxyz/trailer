@@ -22,10 +22,10 @@ export const Provider = {
 export type Provider = typeof Provider[keyof typeof Provider];
 
 class Authentication extends Model {
-  public id!: string;
-  public userId!: string;
-  public provider!: string;
-  public providerId!: string;
+  declare id: string;
+  declare userId: string;
+  declare provider: string;
+  declare providerId: string;
 }
 
 Authentication.init(

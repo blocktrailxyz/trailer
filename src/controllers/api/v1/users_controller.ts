@@ -29,7 +29,7 @@ export const show = async (request: FastifyRequest<{ Params: { id: string } }>, 
       const responseData = UserSerializer.serialize(user);
       reply.send(responseData);
     } else {
-      render404Error(request, reply)
+      render404Error(reply)
     }
   }, request, reply);
 };

@@ -29,7 +29,6 @@ const metricsMiddleware = (fastify: FastifyInstance): void => {
 
   if (process.env.NODE_ENV === "production") {
     collectDefaultMetrics({ register });
-
   }
 
   // Hook to track request start time

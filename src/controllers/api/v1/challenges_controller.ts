@@ -9,7 +9,7 @@ export const create = async (request: FastifyRequest, reply: FastifyReply) => {
 
     if(walletAddress === undefined || chain === undefined){
       const errorMessage = 'Wallet Address and Chain are required'
-      return render400Error(request, reply, errorMessage);
+      return render400Error(reply, errorMessage);
     }
     const nonce = new Date().getTime();
     const message = `Please sign this message: nonce: {${nonce}}`;
