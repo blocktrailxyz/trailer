@@ -3,78 +3,69 @@ import User from 'models/user';
 import { IUserSerializer, UserSerializer } from 'serializers/user_serializer';
 import { JsonApiResponseType } from 'types/json_api_response_type';
 import { paginate, parsePagination } from 'helpers/paginate_helper';
-import { render404Error, renderJson } from 'helpers/render_json_helper';
+import { AppError } from 'errors/app_error';
 
 export const index = async (request: FastifyRequest, reply: FastifyReply) => {
-  await renderJson(async () => {
-    const paginateParams = parsePagination(request.query);
-    const paginatedUsers = await paginate(
-      User,
-      { order: [['createdAt', 'DESC']] },
-      UserSerializer,
-      paginateParams.page,
-      paginateParams.perPage,
-      request
-    );
+  const paginateParams = parsePagination(request.query);
+  const paginatedUsers = await paginate(
+    User,
+    { order: [['createdAt', 'DESC']] },
+    UserSerializer,
+    paginateParams.page,
+    paginateParams.perPage,
+    request
+  );
 
-    reply.send(paginatedUsers);
-  }, request, reply);
+  reply.send(paginatedUsers);
 };
 
 export const show = async (request: FastifyRequest<{ Params: { id: string } }>, reply: FastifyReply) => {
-  await renderJson(async () => {
-    const { id } = request.params;
-    const user = await User.findByPk(id);
-    if (user) {
-      const responseData = UserSerializer.serialize(user);
-      reply.send(responseData);
-    } else {
-      render404Error(reply)
-    }
-  }, request, reply);
+  const { id } = request.params;
+  const user = await User.findByPk(id);
+  if (user) {
+    const responseData = UserSerializer.serialize(user);
+    reply.send(responseData);
+  } else {
+    throw new AppError('User not found', 404);
+  }
 };
 
 export const create = async (request: FastifyRequest<{ Body: { displayName: string; emojicon: string } }>, reply: FastifyReply) => {
-  await renderJson(async () => {
-
-    const { displayName, emojicon } = request.body;
+  const { displayName, emojicon } = request.body;
+  try {
     const user = await User.create({ displayName, emojicon });
     const responseData: JsonApiResponseType<IUserSerializer> = UserSerializer.serialize(user);
 
     reply.status(201).send(responseData);
-  }, request, reply);
-
+  }
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  catch (error: any) {
+    throw new AppError(error.message, 400);
+  }
 };
 
-export const update = async (request: FastifyRequest<{ Params: { id: string }; Body: { name?: string; email?: string } }>, reply: FastifyReply) => {
-  await renderJson(async () => {
-    const { id } = request.params;
-    const { name, email } = request.body;
+export const update = async (request: FastifyRequest<{ Params: { id: string }; Body: { displayName?: string; emojicon?: string } }>, reply: FastifyReply) => {
+  const { id } = request.params;
+  const { displayName, emojicon } = request.body;
 
-    const user = await User.findByPk(id);
-    if (user) {
-      await user.update({ name, email });
-      const resonseData: JsonApiResponseType<IUserSerializer> = UserSerializer.serialize(user);
-      reply.send(resonseData);
-    } else {
-      reply.status(404).send({ error: 'User not found' });
-    }
-  }, request, reply);
-
+  const user = await User.findByPk(id);
+  if (user) {
+    const updatedUser = await user.update({ displayName, emojicon }) as User;
+    const resonseData = UserSerializer.serialize(updatedUser);
+    reply.send(resonseData);
+  } else {
+    throw new AppError('User not found', 404);
+  }
 };
 
 export const destroy = async (request: FastifyRequest<{ Params: { id: string } }>, reply: FastifyReply) => {
-  await renderJson(async () => {
+  const { id } = request.params;
 
-    const { id } = request.params;
-
-    const user = await User.findByPk(id);
-    if (user) {
-      await user.destroy();
-      reply.status(204).send();
-    } else {
-      reply.status(404).send({ error: 'User not found' });
-    }
-  }, request, reply);
-
+  const user = await User.findByPk(id);
+  if (user) {
+    await user.destroy();
+    reply.status(204).send();
+  } else {
+    throw new AppError('User not found', 404);
+  }
 };

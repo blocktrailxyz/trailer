@@ -13,7 +13,7 @@ import Table from 'cli-table3';
 
   // walletAddress = 0xA756a467625b643d5476Fbef003e1561aeCa9476
   const defaultSecretKey: string = "0x6f8824ee295c41da2c415278c426230ad153b09e17c3a5ee16b785edb8da6ed1"; // Leave empty to generate a new keypair
-  const defaultChallengeMessage = `Please sign this message: nonce: {1738167822126}`; // Copy from server response to sign challenge
+  const defaultChallengeMessage = `Please sign this message: nonce: {1738503797465}`; // Copy from server response to sign challenge
 
   let walletAddress: string;
   let secretKey: string;

@@ -59,8 +59,8 @@ export async function paginate<T extends Model>(
       next: page < totalPages ? constructLink(page + 1) : null,
       prev: page > 1 ? constructLink(page - 1) : null,
     },
-    data: serializer.serialize(rows),
-  };
+    data: serializer.serialize(rows).data
+  }
 }
 
 export interface PaginationParams {

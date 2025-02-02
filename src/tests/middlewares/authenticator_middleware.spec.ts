@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { baseControllerEntry } from 'controllers/base_controller';
 import Fastify, { FastifyReply } from "fastify";
 import authenticatorMiddleware, { FastifyAuthRequest } from "middlewares/authenticator_middlewar";
 import User from "models/user";
@@ -23,9 +24,11 @@ describe("authenticatorMiddleware", () => {
     revokedToken = UserAuthTokenSigner.sign(user);
 
     // Define a protected route with the authenticatorMiddleware
-    fastify.get("/protected", { preHandler: authenticatorMiddleware }, async (req: FastifyAuthRequest, reply: FastifyReply) => {
+    const protectedRoute = async (req: FastifyAuthRequest, reply: FastifyReply) => {
       return reply.send({ message: "Access granted", user: req.currentUser });
-    });
+    }
+
+    fastify.get("/protected", { preHandler: authenticatorMiddleware }, baseControllerEntry(protectedRoute));
     await fastify.ready();
   });
 
