@@ -1,16 +1,16 @@
 import Fastify from "fastify";
-import { create } from "controllers/api/v1/signatures_controller"; // Adjust the path
 import BlockchainAuthenticator from "services/blockchain_authenticator";
 import User from "models/user";
 import { authenticationWithUserFactory } from "factories/authentication.factory";
 import { AuthResult } from "services/oauth_authenticator";
 import Authentication from "models/authentication";
+import routes from "routes/index_route";
 
 describe("POST /api/v1/signatures", () => {
   const fastify = Fastify();
 
   beforeAll(async () => {
-    fastify.post("/api/v1/signatures", create);
+    fastify.register(routes)
     await fastify.ready();
   });
 
@@ -29,7 +29,7 @@ describe("POST /api/v1/signatures", () => {
     // Mock user object
     const {user, authentication } = await authenticationWithUserFactory.create({}, {})
     const authResult: AuthResult = { user: user as User, authentication: authentication as Authentication, isNewUser: false };
-  
+
     // Mock BlockchainAuthenticator
     jest.spyOn(BlockchainAuthenticator, "call").mockResolvedValue(authResult);
 

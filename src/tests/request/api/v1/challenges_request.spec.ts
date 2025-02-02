@@ -1,11 +1,11 @@
 import Fastify from "fastify";
-import { create } from "controllers/api/v1/challenges_controller"; // Adjust the path as necessary
+import routes from "routes/index_route";
 
 describe("POST /api/v1/challenges", () => {
   const fastify = Fastify();
 
   beforeAll(async () => {
-    fastify.post("/api/v1/challenges", create);
+    fastify.register(routes)
     await fastify.ready();
   });
 
@@ -59,7 +59,7 @@ describe("POST /api/v1/challenges", () => {
 
     const responseData = JSON.parse(response.body);
 
-    const error = {"errors":[{"status":"400","title":"Bad Request","detail":"Wallet Address and Chain are required"}]}
+    const error = { "errors":[{"status":"400","title":"Bad Request","detail":"Wallet Address and Chain are required"}]}
     expect(responseData).toEqual(error); // Bad Request
   });
 

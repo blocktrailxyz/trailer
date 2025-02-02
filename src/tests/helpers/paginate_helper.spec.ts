@@ -65,20 +65,18 @@ describe('paginate', () => {
         next: 'http://localhost/users?page=3&pageSize=10',
         prev: 'http://localhost/users?page=1&pageSize=10',
       },
-      data: {
-        data: [
-          {
-            type: 'mocks',
-            id: '1', // Mocked data doesn't have an id in this case
-            attributes: { name: 'John Doe', email: 'john@example.com' },
-          },
-          {
-            type: 'mocks',
-            id: '2',
-            attributes: { name: 'Jane Doe', email: 'jane@example.com' },
-          },
-        ],
-      },
+      data: [
+        {
+          type: 'mocks',
+          id: '1', // Mocked data doesn't have an id in this case
+          attributes: { name: 'John Doe', email: 'john@example.com' },
+        },
+        {
+          type: 'mocks',
+          id: '2',
+          attributes: { name: 'Jane Doe', email: 'jane@example.com' },
+        },
+      ]
     });
   });
 
@@ -107,7 +105,7 @@ describe('paginate', () => {
         next: null,
         prev: null,
       },
-      data: { data: [] },
+      data: [],
     });
   });
 

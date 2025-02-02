@@ -18,6 +18,8 @@ describe(`OauthsController`, () => {
 
   beforeAll(async () => {
     app.register(routes);
+    await app.ready();
+
   });
 
   afterAll(async () => {

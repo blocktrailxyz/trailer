@@ -14,7 +14,7 @@ import Table from 'cli-table3';
 
   // publicKey = CGomr5mcTRF7kEGxwVw6aQsZQgG6F3yPSWE5WVoTUqRh
   const defaultSecretKey: string = "62GRgc3JQvUsCsZP1qYXQZZaBKk8DM3GQy1ykuppvaBrJ6hpfPaFqnkeY2rWWgfeXCwwgsqghBRnPw49kkGrzwrf"; // Leave empty to generate a new keypair
-  const defaultChallengeMessage = `Please sign this message: nonce: {1738161180558}`; // Copy from server response to sign challenge
+  const defaultChallengeMessage = `Please sign this message: nonce: {1738503927143}`; // Copy from server response to sign challenge
 
   let keypair: Keypair;
   let publicKey: string;

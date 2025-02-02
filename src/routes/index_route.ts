@@ -1,5 +1,5 @@
 import { FastifyInstance } from 'fastify';
-import homeRoutes from './home_route';
+import { homeRoutes, healthcheckRoutes} from './home_route';
 
 import userRoutes from './api/v1/users_route';
 import oauthRoutes from './api/v1/oauths_route';
@@ -9,6 +9,7 @@ import signatureRoutes from './api/v1/signatures_route';
 export default async function routes(fastify: FastifyInstance) {
   // Home page route
   fastify.register(homeRoutes);
+  fastify.register(healthcheckRoutes);
 
   // API with custom path
   fastify.register(

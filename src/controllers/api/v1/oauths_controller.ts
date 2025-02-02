@@ -2,23 +2,22 @@ import { isBlank } from 'helpers/support_helper';
 import { FastifyReply, FastifyRequest } from 'fastify';
 import { UserSerializer } from 'serializers/user_serializer';
 import OauthAuthenticator, { OAuthParams } from 'services/oauth_authenticator';
-import { render400Error, renderJson } from 'helpers/render_json_helper';
+import { AppError } from 'errors/app_error';
 
 export const create = async (request: FastifyRequest, reply: FastifyReply) => {
-  await renderJson(async() =>{
-    const { provider, token, displayName, emojicon } = request.body as OAuthParams;
 
-    if (isBlank(provider) || isBlank(token)) {
-      const errorMessage = 'Provider and token are required'
-      return render400Error(reply, errorMessage)
-    }
+  const { provider, token, displayName, emojicon } = request.body as OAuthParams;
 
-    else {
-      const result = await OauthAuthenticator.call({ provider, token, displayName, emojicon });
-      const responseData = UserSerializer.serialize(result.user);
+  if (isBlank(provider) || isBlank(token)) {
+    const errorMessage = 'Provider and token are required'
+    throw new AppError(errorMessage, 400);
+  }
 
-      return reply.send(responseData);
-    }
+  else {
+    const result = await OauthAuthenticator.call({ provider, token, displayName, emojicon });
+    const responseData = UserSerializer.serialize(result.user);
 
-  }, request, reply);
+    return reply.send(responseData);
+  }
+
 };

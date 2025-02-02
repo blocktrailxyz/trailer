@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { FastifyReply, FastifyRequest } from 'fastify';
+import { getHttpStatusMessage } from './http_status_helper';
 
 interface JsonApiError {
   status: string;
@@ -21,63 +22,34 @@ export const renderJson = async (
   }
 };
 
-export const render500Error = (reply: FastifyReply, error: any) => {
-  const statusCode = 500
+export const renderError = (reply: FastifyReply, statusCode: number, error?: any) => {
+  const title = getHttpStatusMessage(statusCode);
 
   const jsonApiError: JsonApiError = {
     status: statusCode.toString(),
-    title: 'Internal Server Error',
-    detail: error.message || 'An unexpected error occurred',
+    title: title,
+    detail: `${error.message}` || 'An unexpected error occurred',
   };
 
   reply.status(statusCode).send({ errors: [jsonApiError] });
+};
+
+export const render500Error = (reply: FastifyReply, error?: any) => {
+  renderError(reply, 500, error)
 }
 
-export const render404Error = (reply: FastifyReply, errorMessage?: any) => {
-  const statusCode = 404
-
-  const jsonApiError: JsonApiError = {
-    status: statusCode.toString(),
-    title: 'Not Found',
-    detail: errorMessage || 'Resource is not found',
-  };
-
-  reply.status(statusCode).send({ errors: [jsonApiError] });
+export const render404Error = (reply: FastifyReply, error?: any) => {
+  renderError(reply, 404, error)
 }
 
-export const render403Error = (reply: FastifyReply, errorMessage?: any) => {
-  const statusCode = 403
-
-  const jsonApiError: JsonApiError = {
-    status: statusCode.toString(),
-    title: 'Forbidden',
-    detail: errorMessage || 'Forbidden',
-  };
-
-  reply.status(statusCode).send({ errors: [jsonApiError] });
+export const render403Error = (reply: FastifyReply, error?: any) => {
+  renderError(reply, 403, error)
 }
 
-export const render401Error = (reply: FastifyReply, errorMessage?: any) => {
-  const statusCode = 401
-
-  const jsonApiError: JsonApiError = {
-    status: statusCode.toString(),
-    title: 'Unauthorized',
-    detail: errorMessage || 'Unauthorized',
-  };
-
-  reply.status(statusCode).send({ errors: [jsonApiError] });
+export const render401Error = (reply: FastifyReply, error?: any) => {
+  renderError(reply, 401, error)
 }
 
-export const render400Error = (reply: FastifyReply, errorMessage?: any) => {
-  const statusCode = 400
-
-  const jsonApiError: JsonApiError = {
-    status: statusCode.toString(),
-    title: 'Bad Request',
-    detail: errorMessage || 'Bad Request',
-  };
-
-  reply.status(statusCode).send({ errors: [jsonApiError] });
+export const render400Error = (reply: FastifyReply, error?: any) => {
+  renderError(reply, 400, error)
 }
-
