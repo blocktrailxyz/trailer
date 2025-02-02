@@ -41,7 +41,7 @@ module.exports = {
       },
       contractAddress: {
         type: Sequelize.STRING,
-        allowNull: false,
+        allowNull: true,
       },
       decimals: {
         type: Sequelize.INTEGER,
@@ -61,6 +61,11 @@ module.exports = {
         allowNull: false,
         defaultValue: false,
       },
+      launchedAt: {
+        type: Sequelize.DATE,
+        allowNull: true,
+      },
+
       createdAt: {
         type: Sequelize.DATE,
         allowNull: false,

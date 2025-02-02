@@ -47,6 +47,53 @@ module.exports = {
         allowNull: false,
         defaultValue: 0.0,
       },
+      averageBuyPrice: {
+        type: Sequelize.FLOAT,
+        allowNull: false,
+        defaultValue: 0.0,
+      },
+      totalInvested: {
+        type: Sequelize.FLOAT,
+        allowNull: false,
+        defaultValue: 0.0,
+      },
+      currentPrice: {
+        type: Sequelize.FLOAT,
+        allowNull: false,
+        defaultValue: 0.0,
+      },
+      totalValue: {
+        type: Sequelize.FLOAT,
+        allowNull: false,
+        defaultValue: 0.0,
+      },
+      profitLoss: {
+        type: Sequelize.FLOAT,
+        allowNull: false,
+        defaultValue: 0.0,
+      },
+      buyCount: {
+        type: Sequelize.FLOAT,
+        allowNull: false,
+        defaultValue: 0.0,
+      },
+      sellCount: {
+        type: Sequelize.FLOAT,
+        allowNull: false,
+        defaultValue: 0.0,
+      },
+      lastTradeDate: {
+        type: Sequelize.DATE,
+        allowNull: true,
+      },
+      createdAt: {
+        type: Sequelize.DATE,
+        allowNull: false,
+      },
+      updatedAt: {
+        type: Sequelize.DATE,
+        allowNull: false,
+      },
     });
 
     await queryInterface.addIndex('portfolio_tokens', ['userId']);

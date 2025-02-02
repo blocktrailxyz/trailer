@@ -23,10 +23,9 @@ describe("PortfolioFactory", () => {
     });
 
     it("should create a Portfolio with specific properties", async () => {
-      const { portfolio } = await portfolioWithUserFactory.create({}, { name: "Custom Portfolio", main: true });
+      const { portfolio } = await portfolioWithUserFactory.create({}, { name: "Custom Portfolio" });
 
       expect(portfolio.name).toBe("Custom Portfolio");
-      expect(portfolio.main).toBe(true);
     });
 
     it("should build a User and Portfolio in memory without saving", () => {

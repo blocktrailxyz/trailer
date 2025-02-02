@@ -14,6 +14,7 @@ class Token extends Model {
   public totalSupply!: number;
   public maxSupply!: number;
   public isVerified!: boolean;
+  public launchedAt!: Date;
   public readonly createdAt!: Date;
   public readonly updatedAt!: Date;
 }
@@ -56,7 +57,7 @@ Token.init(
     },
     contractAddress: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: true,
     },
     decimals: {
       type: DataTypes.INTEGER,
@@ -70,6 +71,11 @@ Token.init(
       allowNull: false,
       defaultValue: false,
     },
+
+    launchedAt: {
+      type: DataTypes.DATE,
+      allowNull: true,
+    }
   },
   {
     sequelize,

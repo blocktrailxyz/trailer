@@ -5,19 +5,19 @@ import Token from './token';
 import User from './user';
 
 class PortfolioToken extends Model {
-  public id!: string;
-  public userId!: string;
-  public portfolioId!: string;
-  public tokenId!: string;
-  public amount!: number;
-  public averageBuyPrice!: number;
-  public totalInvested!: number;
-  public currentPrice!: number;
-  public totalValue!: number;
-  public profitLoss!: number;
-  public buyCount!: number;
-  public sellCount!: number;
-  public lastTradeDate!: Date;
+  declare id: string;
+  declare userId: string;
+  declare portfolioId: string;
+  declare tokenId: string;
+  declare amount: number;
+  declare averageBuyPrice: number;
+  declare totalInvested: number;
+  declare currentPrice: number;
+  declare totalValue: number;
+  declare profitLoss: number;
+  declare buyCount: number;
+  declare sellCount: number;
+  declare lastTradeDate: Date;
 }
 
 PortfolioToken.init(

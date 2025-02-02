@@ -8,18 +8,19 @@ import { portfolioWithUserFactory } from "./portfolio.factory";
 import { tokenFactory } from "./token.factory";
 import { userFactory } from "./user.factory";
 
-export const portfolioTokenFactory = new Factory<Partial<PortfolioToken>>(() => ({
-  amount: parseFloat(faker.finance.amount()),
-  averageBuyPrice: parseFloat(faker.finance.amount()),
-  totalInvested: parseFloat(faker.finance.amount()),
-  currentPrice: parseFloat(faker.finance.amount()),
-  totalValue: parseFloat(faker.finance.amount()),
-  profitLoss: parseFloat(faker.finance.amount()),
-  buyCount: faker.number.int({ min: 0, max: 100 }),
-  sellCount: faker.number.int({ min: 0, max: 100 }),
-  lastTradeDate: faker.date.between({ from: "2022-01-01", to: new Date() }), // Random date within last 2 years
-
-}));
+export const portfolioTokenFactory = new Factory<Partial<PortfolioToken>>(() => (
+  {
+    amount: parseFloat(faker.finance.amount()),
+    averageBuyPrice: parseFloat(faker.finance.amount()),
+    totalInvested: parseFloat(faker.finance.amount()),
+    currentPrice: parseFloat(faker.finance.amount()),
+    totalValue: parseFloat(faker.finance.amount()),
+    profitLoss: parseFloat(faker.finance.amount()),
+    buyCount: faker.number.int({ min: 0, max: 100 }),
+    sellCount: faker.number.int({ min: 0, max: 100 }),
+    lastTradeDate: faker.date.between({ from: "2022-01-01", to: new Date() }), // Random date within last 2 years
+  }
+));
 
 export const portfolioTokenUserFactory = {
   async create(
