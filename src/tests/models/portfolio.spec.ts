@@ -13,11 +13,6 @@ describe("Portfolio", () => {
     expect(attributes.name).toBeDefined();
     expect(attributes.name.type).toBeInstanceOf(DataTypes.STRING);
     expect(attributes.name.allowNull).toBe(false);
-
-    expect(attributes.main).toBeDefined();
-    expect(attributes.main.type).toBeInstanceOf(DataTypes.BOOLEAN);
-    expect(attributes.main.allowNull).toBe(false);
-    expect(attributes.main.defaultValue).toBe(false);
   });
 
   it("should create a valid portfolio", async () => {
@@ -28,6 +23,5 @@ describe("Portfolio", () => {
     expect(portfolio).toBeDefined();
     expect(portfolio.userId).toBe(user.id);
     expect(portfolio.name).toBeDefined();
-    expect(portfolio.main).toBeDefined();
   })
 });

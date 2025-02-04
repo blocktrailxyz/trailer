@@ -3,13 +3,12 @@ import sequelize from 'config/database';
 import User from './user';
 
 class Portfolio extends Model {
-  public id!: string;
-  public userId!: string;
-  public name!: string;
-  public main!: boolean;
+  declare id: string;
+  declare userId: string;
+  declare name: string;
 
-  public readonly createdAt!: Date;
-  public readonly updatedAt!: Date;
+  declare readonly createdAt: Date;
+  declare readonly updatedAt: Date;
 }
 
 Portfolio.init(
@@ -30,15 +29,7 @@ Portfolio.init(
     name: {
       type: DataTypes.STRING,
       allowNull: false,
-    },
-
-    main: {
-      type: DataTypes.BOOLEAN,
-      allowNull: false,
-      defaultValue: false,
-    },
-
-
+    }
   },
   {
     sequelize,

@@ -46,23 +46,26 @@ npx ts-jest config:init
 # run test
 yarn test
 
+# generate data
+yarn db:seeds
+
 ```
 
 ## Frontend
 
 The frontend app is in Nextjs under the /frontend directory.
 
+## External Docs
+
+- Trailer API Docs: <https://documenter.getpostman.com/view/41265322/2sAYQiB87a>
+- Coingecko API: <https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=250&page=1>
+
 ## References
 
 - Typescript: <https://fastify.dev/docs/latest/Reference/TypeScript>
 - <https://www.quicknode.com/guides/solana-development/dapps/how-to-authenticate-users-with-a-solana-wallet>
-- Postman: <https://documenter.getpostman.com/view/41265322/2sAYQiB87a>
 - Register Google Oauth API: <https://dev.to/jkevinbaluyot/google-login-rails-7-tutorial-1ai6>
 - Google one-tap login: <https://developers.google.com/identity/gsi/web/reference/html-reference> and make sure to whitelist your domains in the **Authorized JavaScript origins
 ** section next to the **Authorized redirect URIs** in the Credentials config.
 - Register Github Oauth API: <https://github.com/settings/applications/new>
 - Register Microsoft Oauth API: <https://docs.flexera.com/flexera/EN/ITAssets/M365_RegisteringAppAzure_OLH.htm>
-
-## Dataset / Public API
-
-- <https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=250&page=1>

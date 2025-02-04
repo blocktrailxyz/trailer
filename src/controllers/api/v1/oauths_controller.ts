@@ -1,4 +1,4 @@
-import { isBlank } from 'helpers/support_helper';
+import { isBlank } from 'helpers/app_helper';
 import { FastifyReply, FastifyRequest } from 'fastify';
 import { UserSerializer } from 'serializers/user_serializer';
 import OauthAuthenticator, { OAuthParams } from 'services/oauth_authenticator';

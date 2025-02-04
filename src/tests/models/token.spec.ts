@@ -37,7 +37,7 @@ describe("models/token", () => {
 
     expect(attributes.contractAddress).toBeDefined();
     expect(attributes.contractAddress.type).toBeInstanceOf(DataTypes.STRING);
-    expect(attributes.contractAddress.allowNull).toBe(false);
+    expect(attributes.contractAddress.allowNull).toBe(true);
 
     expect(attributes.decimals).toBeDefined();
     expect(attributes.decimals.type).toBeInstanceOf(DataTypes.INTEGER);

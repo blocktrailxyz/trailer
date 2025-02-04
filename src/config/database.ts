@@ -3,6 +3,7 @@ import { Sequelize } from "sequelize";
 
 
 const dbName = Env.isTest() ? Env.fetch('DB_TEST_NAME') : Env.fetch('DB_NAME')
+// const poolSize = parseInt(Env.fetch('DB_POOL_SIZE', '5'))
 
 const sequelize = new Sequelize({
   dialect: 'postgres',

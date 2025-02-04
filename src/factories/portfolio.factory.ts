@@ -7,7 +7,6 @@ import { userFactory } from "./user.factory";
 export const portfolioFactory = new Factory<Partial<Portfolio>>(() => ({
   name: faker.lorem.words(),
   description: faker.lorem.sentence(),
-  main: false,
   createdAt: new Date(),
   updatedAt: new Date(),
 }));
